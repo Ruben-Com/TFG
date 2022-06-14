@@ -17,8 +17,6 @@
 
 #define PRU0_RPMSG_CHAN_DESC		"Channel 30"
 #define PRU0_RPMSG_CHAN_PORT		30
-#define PRU1_RPMSG_CHAN_DESC		"Channel 31"
-#define PRU1_RPMSG_CHAN_PORT		31
 
 #define VIRTIO_CONFIG_S_DRIVER_OK	4
 

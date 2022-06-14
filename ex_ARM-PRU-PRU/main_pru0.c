@@ -51,9 +51,11 @@ struct pru_rpmsg_transport transport;
 				if(payload[0]=='R'){
 					start0_R();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Right\n", sizeof("Right\n")/sizeof(char));
 				} else if(payload[0]=='L'){
 					start0_L();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Left\n", sizeof("Left\n")/sizeof(char));
 				} else{
 					pru_rpmsg_send(&transport, dst, src, "Opcion invalida\n", sizeof("Opcion invalida\n")/sizeof(char));
 				}

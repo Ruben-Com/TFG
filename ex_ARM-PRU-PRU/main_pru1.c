@@ -6,7 +6,7 @@
 #include <pru_virtqueue.h>
 #include <pru_rpmsg.h>
  
-#include "resource_table1.h"
+#include "resource_table.h"
 #include "pru_defs.h"
 
 #define HOST_ARM_TO_PRU0		HOST0_INT
