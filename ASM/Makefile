@@ -9,7 +9,7 @@ LIBS=--library=libc.a --library=./lib/rpmsg_lib.lib
 INCLUDE=--include_path=$(PRU_CGT)/include --include_path=./include
 LINKER_COMMAND_FILE=./AM335x_PRU.cmd
 
-all: clean create compile link2 configure
+all: clean create compile link configure load_firm
 
 create:
 	@echo 'Creating $(GEN_DIR) directory'
@@ -22,14 +22,10 @@ compile:
 
 link:
 	@echo 'Linking project $(PROJ)'
-	@$(PRU_CGT)/bin/clpru $(CFLAGS) -z -i$(PRU_CGT)/lib -i$(PRU_CGT)/include -o $(GEN_DIR)/$(PROJ).out $(GEN_DIR)/$(PROJ).object -m$(GEN_DIR)/$(PROJ).map $(LINKER_COMMAND_FILE) $(LIBS)
-
-link2:
-	@echo 'Linking project $(PROJ)'
 	@$(PRU_CGT)/bin/lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/include $(LFLAGS) -o $(GEN_DIR)/$(PROJ).out $(GEN_DIR)/$(PROJ).object $(GEN_DIR)/pru1-asm-blinky.object $(LINKER_COMMAND_FILE) $(LIBS) $(GEN_DIR)/$(PROJ).object $(GEN_DIR)/pru1-asm-blinky.object
 
 configure:
-	@echo 'Configuring P9_28-31 and P8_43-46 as pruout'
+	@echo 'Configuring P9_28-31 and P8_39-46 as pruout'
 	@config-pin P9_31 pruout
 	@config-pin P9_30 pruout
 	@config-pin P9_29 pruout

@@ -1,5 +1,5 @@
 /*
- * Source Modified by Zubeen Tolani < ZeekHuge - zeekhuge@gmail.com >
+ * Source Modified by Rubén Comerón Galán < Batuecas12 - rubencg2000@hotmail.es >
  * Based on the examples distributed by TI
  *
  * Copyright (C) 2015 Texas Instruments Incorporated - http://www.ti.com/
@@ -45,15 +45,18 @@ void main(void)
 {
 	volatile uint32_t gpio;
 
-	/* Clear SYSCFG[STANDBY_INIT] to enable OCP master port */
+	// Clear SYSCFG[STANDBY_INIT] to enable OCP master port
 	CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
 
-	/* Toggle GPO pins TODO: Figure out which to use */
-	gpio = 0x000F;
+	// Toggle pins. gpio1 for the lowest 4 bits and gpio for the next 4 lowest bits
+	gpio1 = 0x000F;
+	gpio2 = 0x00F0;
 
-	/* TODO: Create stop condition, else it will toggle indefinitely */
+	// It will toggle until the PRU gets stopped
 	while (1) {
-		__R30 ^= gpio;
+		__R30 ^= gpio1;
+		__delay_cycles(100000000);
+		__R30 ^= gpio2;
 		__delay_cycles(100000000);
 	}
 }

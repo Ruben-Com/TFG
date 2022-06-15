@@ -1,5 +1,5 @@
 /*
- * Source Modified by Zubeen Tolani < ZeekHuge - zeekhuge@gmail.com >
+ * Source Modified by Rubén Comerón Galán < Batuecas12 - rubencg2000@hotmail.es >
  * Based on the examples distributed by TI
  *
  * Copyright (C) 2015 Texas Instruments Incorporated - http://www.ti.com/
@@ -38,9 +38,7 @@
 #include <pru_cfg.h>
 #include "resource_table.h"
 
-// The function is defined in pru1_asm_blinky.asm in same dir
-// We just need to add a declaration here, the defination can be
-// seperately linked
+// The function from pru1_asm_blinky.asm in same dir so we can call it later
 extern void start(void);
 
 void main(void)

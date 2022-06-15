@@ -1,3 +1,4 @@
+;* Source Modified by Rubén Comerón Galán < Batuecas12 - rubencg2000@hotmail.es >
 ;*
 ;* Copyright (C) 2016 Zubeen Tolani <ZeekHuge - zeekhuge@gmail.com>
 ;*
@@ -23,6 +24,7 @@ $E?:
 	.clink
 	.global start0_R
 start0_R:
+;* We store this values in order to check that they change before getting stored
 	LDI32 	R15, 0xFFFFFFFF
 	LDI32 	R16, 0xFFFFFFFF
 	LDI32 	R17, 0xFFFFFFFF
@@ -45,6 +47,7 @@ start0_R:
 	LDI32 	R23, 0x00000000
 	SBBO	&R15, R10, 0, 36
 
+;* Return direction is stored in R3.w2 and return value is stored in R14
 	JMP	R3.w2
 
 	.global start0_L

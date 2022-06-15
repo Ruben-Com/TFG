@@ -1,3 +1,4 @@
+;* Source Modified by Rubén Comerón Galán < Batuecas12 - rubencg2000@hotmail.es >
 ;*
 ;* Copyright (C) 2016 Zubeen Tolani <ZeekHuge - zeekhuge@gmail.com>
 ;*
@@ -8,7 +9,7 @@
 ;* it under the terms of the GNU General Public License version 2 as
 ;* published by the Free Software Foundation.
 
-
+;* We define the function DELAY
 	.cdecls "main_pru1.c"
 
 DELAY	.macro time
@@ -20,6 +21,7 @@ $E?:
 	.endm
 	
 
+;* We define the function start that will be called from the main
 	.clink
 	.global start
 start:
