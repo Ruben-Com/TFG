@@ -23,9 +23,9 @@ $E?:
 	.clink
 	.global start1
 start1:
-	DELAY 	15000
+	DELAY 	150
 	LDI32	R10, 0x00010200
-	XIN	0x0e, &R2.b0, 0x08 
+	XIN	0x0b, &R2.b0, 0x08 
 	LBBO	&R9, R10, 0, 4
 	DELAY 	15000000
 	LDI32 	R30, 0xFFFFFFBF

@@ -24,7 +24,8 @@ $E?:
 	.global start0
 start0:
 	LDI32 	R9, 0x00ABCDEF
-	XOUT	0x0e, &R2.b0, 0x08
+	LDI32 	R2, 0x00ABCDEF
+	XOUT	0x0b, &R2.b0, 0x08
 	LDI32	R10, 0x00010200
 	SBBO	&R9, R10, 0, 4
 	LDI32 	R30, 0xFFFFFFFF
