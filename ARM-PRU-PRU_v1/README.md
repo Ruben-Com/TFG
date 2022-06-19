@@ -1,12 +1,12 @@
 The executable "connector" is the C program used to access the file /dev/rpmsg_30 in order to send and receive messages from PRU0 through a more friendly interface. Using that program, the user will be able to select between different options of signals with some parameters in each one through an interactive menu. The possible signals and possible customizable parameters are:
 
-	Nombre			Abreviaci√n		Par√metros				C√digo en 2 MS bytes
+	Nombre			Abreviacion		Parametros				Codigo en 2 MS bytes
 	---------------------------------------------------------------------------------------------------------------
 
 	Diente de sierra	   (D)			[Velocidad=1]
 	Senoidal		   (S)			[Velocidad=1]
 	Triangular		   (T)			[Velocidad=1]
-	PWM			   (W)			[Tiempo en alto=50%]				0x0001
+	PWM			   (W)			[Velocidad=1]					0x0001
 	Valor fijo		   (F)			[Valor=0x0F]					0x0002
 	Pulso			   (P)			[Valor=0xFF]					0x0003
 

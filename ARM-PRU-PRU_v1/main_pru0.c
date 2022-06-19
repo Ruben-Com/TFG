@@ -49,8 +49,9 @@
 #define HOST_ARM_TO_PRU0		HOST0_INT
 #define HOST_PRU0_TO_PRU1		HOST1_INT
 
-extern void start0_F(void);
-extern void start0_D(uint16_t);
+extern void start0_F(uint16_t);
+extern void start0_I(void);
+extern void start0_H(void);
 volatile register uint32_t __R31;
 uint8_t payload[RPMSG_BUF_SIZE];
 
@@ -86,12 +87,15 @@ struct pru_rpmsg_transport transport;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 				if(payload[0]=='F'){
-					start0_F();
+					start0_F(len); //CAMBIAR EL PARAMETRO DE LA FUNCION
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-				} else if(payload[0]=='D'){
-
-					start0_D(len);
+				} else if(payload[0]=='I'){
+					start0_I();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+				} else if(payload[0]=='H'){
+					start0_H();
+					generate_sys_eve(SE_PRU0_TO_PRU1);
+					__halt();
 				}
 			}
 		}
