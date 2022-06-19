@@ -35,6 +35,7 @@
 
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <pru_cfg.h>
 #include <pru_intc.h>
@@ -48,8 +49,8 @@
 #define HOST_ARM_TO_PRU0		HOST0_INT
 #define HOST_PRU0_TO_PRU1		HOST1_INT
 
-extern void start0_R(void);
-extern void start0_L(void);
+extern void start0_F(void);
+extern void start0_D(uint16_t);
 volatile register uint32_t __R31;
 uint8_t payload[RPMSG_BUF_SIZE];
 
@@ -84,16 +85,13 @@ struct pru_rpmsg_transport transport;
 			CT_INTC.SICR_bit.STS_CLR_IDX = SE_ARM_TO_PRU0;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-				if(payload[0]=='R'){
-					start0_R();
+				if(payload[0]=='F'){
+					start0_F();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Right\n", sizeof("Right\n")/sizeof(char));
-				} else if(payload[0]=='L'){
-					start0_L();
+				} else if(payload[0]=='D'){
+
+					start0_D(len);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Left\n", sizeof("Left\n")/sizeof(char));
-				} else{
-					pru_rpmsg_send(&transport, dst, src, "Opcion invalida\n", sizeof("Opcion invalida\n")/sizeof(char));
 				}
 			}
 		}
