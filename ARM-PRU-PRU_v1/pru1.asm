@@ -25,9 +25,8 @@ $E?:
 	.global start1
 start1:
 	LDI32	R10, 0x00010000
-	LDI32	R11, 
-	LBBO	&R15, R10, 0, 4
-	QBEQ	scratch_pad, R15.w0, 0
+	LBBO	&R11, R10, 0, 4
+	QBEQ	scratch_pad, R11.w0, 0
 	JMP	sram
 
 
@@ -36,10 +35,16 @@ sram:
 
 
 scratch_pad:
-	QBEQ	apagar, R15.w2, 0xFFFF
-	QBEQ	parar, R15.w2, 0xFF00
-	MOV	R11, R16
+	QBEQ	apagar, R11.b3, 0xFF
+	QBEQ	parar, R11.b2, 0xFF
+	QBEQ	pwm, R11.w2, 1
+	QBEQ	valor_fijo, R11.w2, 2
+	QBEQ	pulso, R11.w2, 3
 	HALT
+
+
+valor_fijo:
+	XIN	0x0b, &R30, 0x04
 
 parar:
 	JMP r3.w2

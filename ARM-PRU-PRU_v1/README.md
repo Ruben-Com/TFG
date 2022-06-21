@@ -13,10 +13,10 @@ The executable "connector" is the C program used to access the file /dev/rpmsg_3
 	Personalizado		   (C)
 #	Personalizado largo	   (L)			POSIBLE NO IMPLEMENTACION
 	Interrumpir señal	   (I)									0xFF00
-	Apagar PRU		   (H)									0xFFFF
+	Apagar PRU		   (H)									0x00FF
 
 
-For PRU communication, I will use the first 4 bytes of SRAM (starting at 0x0001_0000). The 2 less significant bytes contain the number of bytes that will be stored in SRAM. If this value is 0x0000, the PRU will check for the 2 most significant bytes (they contain the code for the signal/action). If their [2 MS bytes] value is 0xFF00 it will stop the current signal and if it is 0xFFFF it will turn off the PRU. There will also exist the posibility of the value being 0x0001 (PWM), 0x0002 (Valor fijo) and 0x0003 (Pulso). 
+For PRU communication, I will use the first 4 bytes of SRAM (starting at 0x0001_0000). The 2 less significant bytes contain the number of bytes that will be stored in SRAM. If this value is 0x0000, the PRU will check for the 2 most significant bytes (they contain the code for the signal/action). If their [2 MS bytes] value is 0x00FF it will stop the current signal and if it is 0xFF00 it will turn off the PRU. There will also exist the posibility of the value being 0x0001 (PWM), 0x0002 (Valor fijo) and 0x0003 (Pulso). 
 For PWM, RELLENAR.
 For Valor fijo, we will store the value passed as a parameter in R30.
 For Pulso, we will store the value passed as a parameter in R30 and we will call Valor fijo with 0x0000 as parameter.
