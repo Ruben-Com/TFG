@@ -30,7 +30,10 @@ start1:
 	SBBO	&R20, R9, 0, 4
 	LBBO	&R15, R10, 12, 4
 
-	SBBO	&R20, R9, 0, 40
+	SBBO	&R20, R9, 0, 8
 	LBBO	&R16, R10, 12, 4
+
+	SBBO	&R20, R9, 0, 40
+	LBBO	&R17, R10, 12, 4
 
 	HALT
