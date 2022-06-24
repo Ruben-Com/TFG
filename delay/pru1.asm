@@ -17,7 +17,7 @@ start1:
 	LDI32	R10, 0x00024000
 	LDI32	R9, 0x00010200
 	LDI32	R29, 0xAAAAAAAA
-	LDI32	R21, 0x0000000F
+	LDI32	R28, 0x0000000F
 
 	LBBO	&R11, R10, 12, 4
 	LBBO	&R12, R10, 12, 4
@@ -31,7 +31,7 @@ start1:
 	SBBO	&R20, R9, 0, 4
 	LBBO	&R15, R10, 12, 4
 
-	SBBO	&R20, R9, 4, 8
+	SBBO	&R28, R9, 4, 8
 	LBBO	&R16, R10, 12, 4
 
 	SBBO	&R20, R9, 12, 40
@@ -51,5 +51,20 @@ start1:
 	SET	R30, R30, 8
 	JMP	medir
 medir:	LBBO	&R19, R10, 12, 4
+
+
+	LBBO	&R29, R9, 0, 8
+	SET	R30, R30, 8
+	ADD	R12, R12, 8
+	QBEQ	medir, R31, 123
+	MOV	R30, R29
+	QBEQ	medir, R11, 123
+	LDI	R11, 4
+	SET	R30, R30, 8
+	JMP	medir2
+medir2:	LBBO	&R20, R10, 12, 4
+
+	LDI32	R6, 4			;tarda un ciclo mas que LDI
+medir3:	LBBO	&R21, R10, 12, 4
 
 	HALT
