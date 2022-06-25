@@ -26,7 +26,7 @@ The representation of the signals will use 7 PRU cycles. The first one will add 
 
 
 # 6 cycles
-It can also be accomplished using only 6 cycles. For it the order should be (supposing it needs 3 cycles to read 8 bytes):		<br />
+It can also be accomplished using only 6 cycles. For it the order should be:								<br />
 <br />
 1, 2, 3 y 4)	Read 8 bytes from SRAM (R29 and R30)											<br />
 5)		Add 1<<8 to R30														<br />
@@ -44,18 +44,18 @@ If condition in 9) meets:														<br />
 12b)		Jump to 1)														<br />
 <br /><br />
 If condition in 10) meets:														<br />
-11c)		Add 1<<8 to R30														<br />
-12c)		Jump to 1c)														<br />
-<br />
-1c)		NOP															<br />
-2c, 3c, y 4c)	Read 4 bytes from SRAM													<br />
+10d)		NOP															<br />
+11d)		Add 1<<8 to R30														<br />
+1c, 2c y 3c)	Read 4 bytes from SRAM													<br />
+4c)		Reset the count														<br />
 5c)		Add 1<<8 to R30														<br />
 <br />
 Segunda ronda:																<br />
 6c)		Add 4 bytes to contador													<br />
-7c)		Check R31														<br />
-8c)		Move R29 to R30														<br />
-9c)		Jump if 0 bytes left to read (compare with number of bytes to be read (R11))						<br />
+7c, 8c y 9c)	Read 4 bytes from SRAM													<br />
+10c)		Check R31														<br />
+11c)		Add 1<<8 to R30														<br />
+12c)		Jump to 1)														<br />
 
 
 # 5 cycles

@@ -16,7 +16,7 @@
 start1:
 	LDI32	R10, 0x00024000
 	LDI32	R9, 0x00010200
-	LDI32	R29, 0xAAAAAAAA
+	LDI32	R11, 0x00000002
 	LDI32	R28, 0x0000000F
 
 	LBBO	&R11, R10, 12, 4
@@ -41,6 +41,7 @@ start1:
 	LBBO	&R18, R10, 12, 4
 
 
+;caso en el que quedan mas de 8 bytes
 	LBBO	&R29, R9, 0, 8
 	SET	R30, R30, 8
 	ADD	R12, R12, 8
@@ -53,18 +54,41 @@ start1:
 medir:	LBBO	&R19, R10, 12, 4
 
 
+;caso en el que quedan 0 bytes por leer
+	LBBO	&R29, R9, 0, 8
+	SET	R30, R30, 8
+	ADD	R12, R12, 8
+	QBEQ	medir, R31, 123
+	MOV	R30, R29
+	QBEQ	aux1, R11, 2
+aux1:	LDI	R11, 4
+	SET	R30, R30, 8
+	JMP	medir2
+medir2:	LBBO	&R20, R10, 12, 4
+
+
+;caso en el que quedan 4 bytes por leer (2 ciclos)
 	LBBO	&R29, R9, 0, 8
 	SET	R30, R30, 8
 	ADD	R12, R12, 8
 	QBEQ	medir, R31, 123
 	MOV	R30, R29
 	QBEQ	medir, R11, 123
+	QBEQ	aux2, R11, 4
+aux2:	NOP
+	SET	R30, R30, 8
+	LBBO	&R30, R9, 0, 4
 	LDI	R11, 4
 	SET	R30, R30, 8
-	JMP	medir2
-medir2:	LBBO	&R20, R10, 12, 4
+	ADD	R12, R12, 4
+	LBBO	&R30, R9, 0, 4
+	QBEQ	medir, R31, 123
+	SET	R30, R30, 8
+	JMP	medir3
+medir3:	LBBO	&R21, R10, 12, 4
+
 
 	LDI32	R6, 4			;tarda un ciclo mas que LDI
-medir3:	LBBO	&R21, R10, 12, 4
+	LBBO	&R22, R10, 12, 4
 
 	HALT
