@@ -28,6 +28,7 @@ start1:
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	JMP	sram
+	HALT
 
 
 sram:
@@ -42,6 +43,9 @@ scratch_pad:
 	QBEQ	pulso, R11.w2, 3
 	HALT
 
+pwm:
+	XIN	0x0b, &R27, 0x0C
+	
 
 valor_fijo:
 	XIN	0x0b, &R30, 0x04

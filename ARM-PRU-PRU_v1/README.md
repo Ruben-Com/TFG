@@ -6,19 +6,19 @@ The executable "connector" is the C program used to access the file /dev/rpmsg_3
 	Diente de sierra	   (D)			[Velocidad=1]
 	Senoidal		   (S)			[Velocidad=1]
 	Triangular		   (T)			[Velocidad=1]
-	PWM			   (W)			[Velocidad=1]					0x0001
+	PWM			   (W)			[Tiempo en alto=2]				0x0001
 	Valor fijo		   (F)			[Valor=0x0F]					0x0002
 	Pulso			   (P)			[Valor=0xFF]					0x0003
 
 	Personalizado		   (C)
-	Interrumpir señal	   (I)									0xFF00
+	Interrumpir seña	   (I)									0xFF00
 	Apagar PRU		   (H)									0x00FF
 
 
 For PRU communication, I will use the first 4 bytes of SRAM (starting at 0x0001_0000). The 2 less significant bytes contain the number of bytes that will be stored in SRAM. If this value is 0x0000, the PRU will check for the 2 most significant bytes (they contain the code for the signal/action). If their [2 MS bytes] value is 0x00FF it will stop the current signal and if it is 0xFF00 it will turn off the PRU. There will also exist the posibility of the value being 0x0001 (PWM), 0x0002 (Valor fijo) and 0x0003 (Pulso). 
-For PWM, RELLENAR.															<br />
-For Valor fijo, we will store the value passed as a parameter in R30.									<br />
-For Pulso, we will store the value passed as a parameter in R30 and we will call Valor fijo with 0x0000 as parameter.			<br />
+For PWM, I will store both values in R28 (low) and R29 (high). It will also store the time percentage in R27 (only 3 possible values (1==25%, 2==50%, 3==75%)).																		<br />
+For Valor fijo, I will store the value passed as a parameter in R30.									<br />
+For Pulso, I will store the value passed as a parameter in R30 and we will call Valor fijo with 0x0000 as parameter.			<br />
 
 # 7 cycles
 NOT WORKING.																<br />
