@@ -11,7 +11,7 @@ The executable "connector" is the C program used to access the file /dev/rpmsg_3
 	Pulso			   (P)			[Valor=0xFF]					0x0003
 
 	Personalizado		   (C)
-	Interrumpir seña	   (I)									0xFF00
+	Interrumpir señl	   (I)									0xFF00
 	Apagar PRU		   (H)									0x00FF
 
 
