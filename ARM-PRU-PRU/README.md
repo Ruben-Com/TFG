@@ -14,27 +14,51 @@ The executable "connector" is the C program used to access the file /dev/rpmsg_3
 	Interrumpir señl	   (I)									0xFF00
 	Apagar PRU		   (H)									0x00FF
 
-
+IMPORTANT: For custom signals, when increasing the value of bytes to read we have to start with 4 as the first 4 bytes will be used for signal size																			<br />
 For PRU communication, I will use the first 4 bytes of SRAM (starting at 0x0001_0000). The 2 less significant bytes contain the number of bytes that will be stored in SRAM. If this value is 0x0000, the PRU will check for the 2 most significant bytes (they contain the code for the signal/action). If their [2 MS bytes] value is 0x00FF it will stop the current signal and if it is 0xFF00 it will turn off the PRU. There will also exist the posibility of the value being 0x0001 (PWM), 0x0002 (Valor fijo) and 0x0003 (Pulso). 
 For PWM, I will store both values in R28 (low) and R29 (high). It will also store the time percentage in R27 (only 3 possible values (1==25%, 2==50%, 3==75%)).																		<br />
 For Valor fijo, I will store the value passed as a parameter in R30.									<br />
 For Pulso, I will store the value passed as a parameter in R30 and we will call Valor fijo with 0x0000 as parameter.			<br />
 
 # 7 cycles
-NOT WORKING.																<br />
-The representation of the signals will use 7 PRU cycles. The first one will add 4 bytes to R12 (keeps count of bytes loaded from SRAM + 4 (initial number of bytes)). The second one checks if R12 has reached the number of samples + 4 to show (stored in R11). The third one gets the value to represent from SRAM (3 cycles). The fourth one resets the counter of bytes represented if the limit has been reached or checks if there has been an interrumption from PRU0 if it hasn't reached the limit. If so, it will jump back to main. The last one adds 1<<16 to R30 so the clock signal is high.
+R10 for beginning of the SRAM, R11 for number of bytes to read and R12 as counter.							<br />
+The sequence should be the next one:													<br />
+1, 2, y 3)	Read 4 bytes														<br />
+4)		Add 4 to counter													<br />
+5)		Check R31														<br />
+6)		Set R30.t8														<br />
+7)		QBEQ contador, cantidad													<br />
+8, 9 y 10)	Read 4 bytes														<br />
+11)		Add 4 to counter													<br />
+12)		QBEQ															<br />
+13)		Set R30.t8														<br />
+14)		JMP 1)															<br />
+<br />
+If condition in 7 is met:														<br />
+8, 9 y 10)	Read 4 bytes from beginning												<br />
+11)		Counter = 8														<br />
+12)		JMP 13)															<br />
+<br />
+If condition in 12 is met:														<br />
+13)		Set R30.t8														<br />
+14)		Counter = 4														<br />
+1, 2 y 3)	Read 4 bytes														<br />
+4)		Add 4 to counter													<br />
+5)		JMP 6)															<br />
+
 
 
 # 6 cycles
+The order of signal values should be: second, first, third, fourth, ...
 It can also be accomplished using only 6 cycles. For it the order should be:								<br />
 <br />
 1, 2, 3 y 4)	Read 8 bytes from SRAM (R29 and R30)											<br />
 5)		Add 1<<8 to R30														<br />
-6)		Add 8 bytes to counter (R12)												<br />
+6)		Add 8 bytes to counter (R13)												<br />
 7)		Check R31														<br />
 8)		MOV R29 to R30														<br />
 9)		Jump if 0 bytes left to read (compare with number of bytes to be read (R11))						<br />
-10)		Jump if 4 bytes left to read (compare with R11 - 4)									<br />
+10)		Jump if 4 bytes left to read (compare with R11 - 4 (R12))									<br />
 11)		Add 1<<8 to R30														<br />
 12)		Jump to 1)														<br />
 <br /><br />

@@ -45,7 +45,7 @@ start0_H:
 start0_S:
 	QBEQ	sen1, R14, 1
 	QBEQ	sen2, R14, 2
-	QBEQ	sen3, R14, 3
+	;QBEQ	sen3, R14, 3
 	HALT
 
 sen1:
@@ -169,7 +169,7 @@ sen1:
 	JMP	r3.w2
 
 
-sin2:
+sen2:
 	LDI32	R10, 0x00010000
 	LDI32	R11, 0x00010130	;244+60 (ultimo offset mas ultima cantidad de bytes escrita)
 	LDI32	R12, 0x0001025C	;R11+300 (ultimo offset mas ultima cantidad de bytes escrita)

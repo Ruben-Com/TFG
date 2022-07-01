@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void main()
 {
@@ -20,7 +21,7 @@ void main()
 		"\t8) Interrumpir senal\n" 
 		"\t9) Apagar PRUs y terminar el programa\n\n");
     	scanf("%d", &opcion);
-    }while(opcion<1 || opcion>9)
+    }while(opcion<1 || opcion>9);
 
     file = fopen("/dev/rpmsg_pru30","w");
 
@@ -33,7 +34,7 @@ void main()
     switch(opcion){
     	case 1:
 		codigo="D";
-		printf("Introduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
+		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
     		scanf("%d", &parametro);
 		if(parametro < 1 || parametro > 3)
 			parametro=1;
@@ -41,7 +42,7 @@ void main()
 		break;    
     	case 2:
 		codigo="S";
-		printf("Introduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
+		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
     		scanf("%d", &parametro);
 		if(parametro < 1 || parametro > 3)
 			parametro=1;
@@ -49,7 +50,7 @@ void main()
 		break;    
     	case 3:
 		codigo="T";
-		printf("Introduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
+		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
     		scanf("%d", &parametro);
 		if(parametro < 1 || parametro > 3)
 			parametro=1;
@@ -57,7 +58,7 @@ void main()
 		break;    
     	case 4:
 		codigo="W";
-		printf("Introduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
+		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
     		scanf("%d", &parametro);
 		if(parametro < 1 || parametro > 3)
 			parametro=1;
@@ -65,7 +66,7 @@ void main()
 		break;    
     	case 5:
 		codigo="F";
-		printf("Introduzca un valor:\n\n");
+		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
     		scanf("%d", &parametro);
 		if(parametro < 0 || parametro > 255)
 			parametro=127;
@@ -73,7 +74,7 @@ void main()
 		break;    
     	case 6:
 		codigo="P";
-		printf("Introduzca un valor:\n\n");
+		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
     		scanf("%d", &parametro);
 		if(parametro < 0 || parametro > 255)
 			parametro=127;

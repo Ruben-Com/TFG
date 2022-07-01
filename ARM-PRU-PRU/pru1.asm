@@ -19,7 +19,6 @@ $M?:	SUB	R0, R0, 1
 	QBNE	$M?, R0, 0
 $E?:	
 	.endm
-	
 
 	.clink
 	.global start1
@@ -27,12 +26,41 @@ start1:
 	LDI32	R10, 0x00010000
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
+	LDI	R12, 4
 	JMP	sram
 	HALT
 
+volver:
+	JMP	R3.w2
+	HALT
 
 sram:
-	
+	LBBO	&R30, R10, R12, 4 
+	DELAY	1000000
+	ADD	R12, R12, 4
+	QBBS	volver, R31, 31
+ci6:	SET	R30, R30, 8
+	QBEQ	cond7, R11, R12
+	LBBO	&R30, R10, R12, 4 
+	DELAY	1000000
+	ADD	R12, R12, 4
+	QBEQ	cond12, R11, R12
+ci13:	SET	R30, R30, 8
+	JMP	sram
+
+cond7:
+	LBBO	&R30, R10, 4, 4
+	DELAY	1000000
+	LDI	R12, 8
+	JMP	ci13
+
+cond12:
+	SET	R30, R30, 8
+	LDI	R12, 4
+	LBBO	&R30, R10, R12, 4
+	DELAY	1000000
+	ADD	R12, R12, 4
+	JMP	ci6
 
 
 scratch_pad:
@@ -48,6 +76,9 @@ pwm:
 	
 
 valor_fijo:
+	XIN	0x0b, &R30, 0x04
+
+pulso:
 	XIN	0x0b, &R30, 0x04
 
 parar:

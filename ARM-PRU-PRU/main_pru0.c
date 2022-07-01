@@ -50,6 +50,7 @@
 #define HOST_PRU0_TO_PRU1		HOST1_INT
 
 extern void start0_F(uint16_t);
+extern void start0_S(uint16_t);
 extern void start0_I(void);
 extern void start0_H(void);
 volatile register uint32_t __R31;
@@ -58,7 +59,7 @@ uint8_t payload[RPMSG_BUF_SIZE];
 void main(void)
 {
 struct pru_rpmsg_transport transport;
-	uint16_t src, dst, len;
+	uint16_t src, dst, len, param;
 	volatile uint8_t *status;
 
 	/* allow OCP master port access by the PRU so the PRU can read external memories */
@@ -85,10 +86,17 @@ struct pru_rpmsg_transport transport;
 			/* Clear the event status */
 			CT_INTC.SICR_bit.STS_CLR_IDX = SE_ARM_TO_PRU0;
 			/* Receive all available messages, multiple messages can be sent per kick */
-			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
+			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 				if(payload[0]=='F'){
 					start0_F(len); //CAMBIAR EL PARAMETRO DE LA FUNCION
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+				} else if(payload[0]=='S'){
+					if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
+						param = atoi(payload[0]);
+						//start0_S(param);
+						start0_S(1);
+						generate_sys_eve(SE_PRU0_TO_PRU1);
+					}
 				} else if(payload[0]=='I'){
 					start0_I();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
