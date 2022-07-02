@@ -45,6 +45,7 @@ configure:
 	@config-pin P8_41 pruout
 	@config-pin P8_40 pruout
 	@config-pin P8_39 pruout
+	@config-pin P8_27 pruout
 
 load_firm:
 	@echo 'Loading firmware into PRU0 and PRU1'

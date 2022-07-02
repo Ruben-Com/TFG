@@ -86,17 +86,15 @@ struct pru_rpmsg_transport transport;
 			/* Clear the event status */
 			CT_INTC.SICR_bit.STS_CLR_IDX = SE_ARM_TO_PRU0;
 			/* Receive all available messages, multiple messages can be sent per kick */
-			if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
+			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 				if(payload[0]=='F'){
 					start0_F(len); //CAMBIAR EL PARAMETRO DE LA FUNCION
 					generate_sys_eve(SE_PRU0_TO_PRU1);
 				} else if(payload[0]=='S'){
-					if (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
-						param = atoi(payload[0]);
-						//start0_S(param);
-						start0_S(1);
-						generate_sys_eve(SE_PRU0_TO_PRU1);
-					}
+					char aux[] = payload[1];
+					param = atoi(aux);
+					start0_S(param);
+					generate_sys_eve(SE_PRU0_TO_PRU1);
 				} else if(payload[0]=='I'){
 					start0_I();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
