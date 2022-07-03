@@ -55,14 +55,14 @@ start0_H:
 start0_S:
 	QBEQ	sen1, R14, 1
 	QBEQ	sen2, R14, 2
-	;QBEQ	sen3, R14, 3
+	QBEQ	sen3, R14, 3
 	HALT
 
 sen1:
 	LDI32	R10, 0x00010000
 	LDI32	R11, 0x00010130	;244+60 (ultimo offset mas ultima cantidad de bytes escrita)
-	LDI32 	R13, 400
-	SBBO	&R13, R10, 0, 4
+	LDI32 	R9, 400
+	SBBO	&R9, R10, 0, 4
 	LDI	R15, 0x7f
 	LDI	R16, 0x87
 	LDI	R17, 0x8f
@@ -183,8 +183,8 @@ sen2:
 	LDI32	R10, 0x00010000
 	LDI32	R11, 0x00010130	;244+60 (ultimo offset mas ultima cantidad de bytes escrita)
 	LDI32	R12, 0x0001025C	;R11+300 (ultimo offset mas ultima cantidad de bytes escrita)
-	LDI32 	R13, 800
-	SBBO	&R13, R10, 0, 4
+	LDI32 	R9, 800
+	SBBO	&R9, R10, 0, 4
 	LDI	R15, 0x7f
 	LDI	R16, 0x83
 	LDI	R17, 0x87
@@ -414,3 +414,351 @@ sen2:
 	SBBO	&R15, R12, 180, 20
 	JMP	r3.w2
 
+sen3:
+	LDI32	R10, 0x00010000
+	LDI32	R11, 0x00010130	;244+60 (ultimo offset mas ultima cantidad de bytes escrita)
+	LDI32	R12, 0x0001025C	;R11+300 (ultimo offset mas ultima cantidad de bytes escrita)
+	LDI32	R13, 0x00010388	;R12+300 (ultimo offset mas ultima cantidad de bytes escrita)
+	LDI32 	R9, 1200
+	SBBO	&R9, R10, 0, 4
+	LDI	R15, 0x7f
+	LDI	R16, 0x82
+	LDI	R17, 0x84
+	LDI	R18, 0x87
+	LDI	R19, 0x8a
+	LDI	R20, 0x8c
+	LDI	R21, 0x8f
+	LDI	R22, 0x92
+	LDI	R23, 0x94
+	LDI	R24, 0x97
+	LDI	R25, 0x9a
+	LDI	R26, 0x9c
+	LDI	R27, 0x9f
+	LDI	R28, 0xa1
+	LDI	R29, 0xa4
+	SBBO	&R15, R10, 4, 60
+
+	LDI	R15, 0xa6
+	LDI	R16, 0xa9
+	LDI	R17, 0xab
+	LDI	R18, 0xae
+	LDI	R19, 0xb0
+	LDI	R20, 0xb3
+	LDI	R21, 0xb5
+	LDI	R22, 0xb8
+	LDI	R23, 0xba
+	LDI	R24, 0xbc
+	LDI	R25, 0xbf
+	LDI	R26, 0xc1
+	LDI	R27, 0xc3
+	LDI	R28, 0xc6
+	LDI	R29, 0xc8
+	SBBO	&R15, R10, 64, 60
+
+	LDI	R15, 0xca
+	LDI	R16, 0xcc
+	LDI	R17, 0xce
+	LDI	R18, 0xd0
+	LDI	R19, 0xd2
+	LDI	R20, 0xd4
+	LDI	R21, 0xd6
+	LDI	R22, 0xd8
+	LDI	R23, 0xda
+	LDI	R24, 0xdc
+	LDI	R25, 0xde
+	LDI	R26, 0xe0
+	LDI	R27, 0xe1
+	LDI	R28, 0xe3
+	LDI	R29, 0xe5
+	SBBO	&R15, R10, 124, 60
+
+	LDI	R15, 0xe6
+	LDI	R16, 0xe8
+	LDI	R17, 0xe9
+	LDI	R18, 0xeb
+	LDI	R19, 0xec
+	LDI	R20, 0xed
+	LDI	R21, 0xef
+	LDI	R22, 0xf0
+	LDI	R23, 0xf1
+	LDI	R24, 0xf2
+	LDI	R25, 0xf3
+	LDI	R26, 0xf5
+	LDI	R27, 0xf6
+	LDI	R28, 0xf7
+	LDI	R29, 0xf7
+	SBBO	&R15, R10, 184, 60
+
+	LDI	R15, 0xf8
+	LDI	R16, 0xf9
+	LDI	R17, 0xfa
+	LDI	R18, 0xfa
+	LDI	R19, 0xfb
+	LDI	R20, 0xfc
+	LDI	R21, 0xfc
+	LDI	R22, 0xfd
+	LDI	R23, 0xfd
+	LDI	R24, 0xfd
+	LDI	R25, 0xfe
+	LDI	R26, 0xfe
+	LDI	R27, 0xfe
+	LDI	R28, 0xfe
+	LDI	R29, 0xfe
+	SBBO	&R15, R10, 244, 60
+
+	LDI	R15, 0xff
+	LDI	R16, 0xfe
+	LDI	R17, 0xfe
+	LDI	R18, 0xfe
+	LDI	R19, 0xfe
+	LDI	R20, 0xfe
+	LDI	R21, 0xfd
+	LDI	R22, 0xfd
+	LDI	R23, 0xfd
+	LDI	R24, 0xfc
+	LDI	R25, 0xfc
+	LDI	R26, 0xfb
+	LDI	R27, 0xfa
+	LDI	R28, 0xfa
+	LDI	R29, 0xf9
+	SBBO	&R15, R11, 0, 60
+
+	LDI	R15, 0xf8
+	LDI	R16, 0xf7
+	LDI	R17, 0xf7
+	LDI	R18, 0xf6
+	LDI	R19, 0xf5
+	LDI	R20, 0xf3
+	LDI	R21, 0xf2
+	LDI	R22, 0xf1
+	LDI	R23, 0xf0
+	LDI	R24, 0xef
+	LDI	R25, 0xed
+	LDI	R26, 0xec
+	LDI	R27, 0xeb
+	LDI	R28, 0xe9
+	LDI	R29, 0xe8
+	SBBO	&R15, R11, 60, 60
+
+	LDI	R15, 0xe6
+	LDI	R16, 0xe5
+	LDI	R17, 0xe3
+	LDI	R18, 0xe1
+	LDI	R19, 0xe0
+	LDI	R20, 0xde
+	LDI	R21, 0xdc
+	LDI	R22, 0xda
+	LDI	R23, 0xd8
+	LDI	R24, 0xd6
+	LDI	R25, 0xd4
+	LDI	R26, 0xd2
+	LDI	R27, 0xd0
+	LDI	R28, 0xce
+	LDI	R29, 0xcc
+	SBBO	&R15, R11, 120, 60
+
+	LDI	R15, 0xca
+	LDI	R16, 0xc8
+	LDI	R17, 0xc6
+	LDI	R18, 0xc3
+	LDI	R19, 0xc1
+	LDI	R20, 0xbf
+	LDI	R21, 0xbc
+	LDI	R22, 0xba
+	LDI	R23, 0xb8
+	LDI	R24, 0xb5
+	LDI	R25, 0xb3
+	LDI	R26, 0xb0
+	LDI	R27, 0xae
+	LDI	R28, 0xab
+	LDI	R29, 0xa9
+	SBBO	&R15, R11, 180, 60
+
+	LDI	R15, 0xa6
+	LDI	R16, 0xa4
+	LDI	R17, 0xa1
+	LDI	R18, 0x9f
+	LDI	R19, 0x9c
+	LDI	R20, 0x9a
+	LDI	R21, 0x97
+	LDI	R22, 0x94
+	LDI	R23, 0x92
+	LDI	R24, 0x8f
+	LDI	R25, 0x8c
+	LDI	R26, 0x8a
+	LDI	R27, 0x87
+	LDI	R28, 0x84
+	LDI	R29, 0x82
+	SBBO	&R15, R11, 240, 60
+
+	LDI	R15, 0x7f
+	LDI	R16, 0x7c
+	LDI	R17, 0x7a
+	LDI	R18, 0x77
+	LDI	R19, 0x74
+	LDI	R20, 0x72
+	LDI	R21, 0x6f
+	LDI	R22, 0x6c
+	LDI	R23, 0x6a
+	LDI	R24, 0x67
+	LDI	R25, 0x64
+	LDI	R26, 0x62
+	LDI	R27, 0x5f
+	LDI	R28, 0x5d
+	LDI	R29, 0x5a
+	SBBO	&R15, R12, 0, 60
+
+	LDI	R15, 0x58
+	LDI	R16, 0x55
+	LDI	R17, 0x53
+	LDI	R18, 0x50
+	LDI	R19, 0x4e
+	LDI	R20, 0x4b
+	LDI	R21, 0x49
+	LDI	R22, 0x46
+	LDI	R23, 0x44
+	LDI	R24, 0x42
+	LDI	R25, 0x3f
+	LDI	R26, 0x3d
+	LDI	R27, 0x3b
+	LDI	R28, 0x38
+	LDI	R29, 0x36
+	SBBO	&R15, R12, 60, 60
+
+	LDI	R15, 0x34
+	LDI	R16, 0x32
+	LDI	R17, 0x30
+	LDI	R18, 0x2e
+	LDI	R19, 0x2c
+	LDI	R20, 0x2a
+	LDI	R21, 0x28
+	LDI	R22, 0x26
+	LDI	R23, 0x24
+	LDI	R24, 0x22
+	LDI	R25, 0x20
+	LDI	R26, 0x1e
+	LDI	R27, 0x1d
+	LDI	R28, 0x1b
+	LDI	R29, 0x19
+	SBBO	&R15, R12, 120, 60
+
+	LDI	R15, 0x18
+	LDI	R16, 0x16
+	LDI	R17, 0x15
+	LDI	R18, 0x13
+	LDI	R19, 0x12
+	LDI	R20, 0x11
+	LDI	R21, 0xf
+	LDI	R22, 0xe
+	LDI	R23, 0xd
+	LDI	R24, 0xc
+	LDI	R25, 0xb
+	LDI	R26, 0x9
+	LDI	R27, 0x8
+	LDI	R28, 0x7
+	LDI	R29, 0x7
+	SBBO	&R15, R12, 180, 60
+
+	LDI	R15, 0x6
+	LDI	R16, 0x5
+	LDI	R17, 0x4
+	LDI	R18, 0x4
+	LDI	R19, 0x3
+	LDI	R20, 0x2
+	LDI	R21, 0x2
+	LDI	R22, 0x1
+	LDI	R23, 0x1
+	LDI	R24, 0x1
+	LDI	R25, 0x0
+	LDI	R26, 0x0
+	LDI	R27, 0x0
+	LDI	R28, 0x0
+	LDI	R29, 0x0
+	SBBO	&R15, R12, 240, 60
+
+	LDI	R15, 0x0
+	LDI	R16, 0x0
+	LDI	R17, 0x0
+	LDI	R18, 0x0
+	LDI	R19, 0x0
+	LDI	R20, 0x0
+	LDI	R21, 0x1
+	LDI	R22, 0x1
+	LDI	R23, 0x1
+	LDI	R24, 0x2
+	LDI	R25, 0x2
+	LDI	R26, 0x3
+	LDI	R27, 0x4
+	LDI	R28, 0x4
+	LDI	R29, 0x5
+	SBBO	&R15, R13, 0, 60
+
+	LDI	R15, 0x6
+	LDI	R16, 0x7
+	LDI	R17, 0x7
+	LDI	R18, 0x8
+	LDI	R19, 0x9
+	LDI	R20, 0xb
+	LDI	R21, 0xc
+	LDI	R22, 0xd
+	LDI	R23, 0xe
+	LDI	R24, 0xf
+	LDI	R25, 0x11
+	LDI	R26, 0x12
+	LDI	R27, 0x13
+	LDI	R28, 0x15
+	LDI	R29, 0x16
+	SBBO	&R15, R13, 60, 60
+
+	LDI	R15, 0x18
+	LDI	R16, 0x19
+	LDI	R17, 0x1b
+	LDI	R18, 0x1d
+	LDI	R19, 0x1e
+	LDI	R20, 0x20
+	LDI	R21, 0x22
+	LDI	R22, 0x24
+	LDI	R23, 0x26
+	LDI	R24, 0x28
+	LDI	R25, 0x2a
+	LDI	R26, 0x2c
+	LDI	R27, 0x2e
+	LDI	R28, 0x30
+	LDI	R29, 0x32
+	SBBO	&R15, R13, 120, 60
+
+	LDI	R15, 0x34
+	LDI	R16, 0x36
+	LDI	R17, 0x38
+	LDI	R18, 0x3b
+	LDI	R19, 0x3d
+	LDI	R20, 0x3f
+	LDI	R21, 0x42
+	LDI	R22, 0x44
+	LDI	R23, 0x46
+	LDI	R24, 0x49
+	LDI	R25, 0x4b
+	LDI	R26, 0x4e
+	LDI	R27, 0x50
+	LDI	R28, 0x53
+	LDI	R29, 0x55
+	SBBO	&R15, R13, 180, 60
+
+	LDI	R15, 0x58
+	LDI	R16, 0x5a
+	LDI	R17, 0x5d
+	LDI	R18, 0x5f
+	LDI	R19, 0x62
+	LDI	R20, 0x64
+	LDI	R21, 0x67
+	LDI	R22, 0x6a
+	LDI	R23, 0x6c
+	LDI	R24, 0x6f
+	LDI	R25, 0x72
+	LDI	R26, 0x74
+	LDI	R27, 0x77
+	LDI	R28, 0x7a
+	LDI	R29, 0x7c
+	SBBO	&R15, R13, 240, 60
+
+	JMP	r3.w2

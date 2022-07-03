@@ -20,8 +20,6 @@ $M?:	SUB	R0, R0, 1
 $E?:	
 	.endm
 
-	.clink
-	.global start1
 start1:
 	LDI32	R10, 0x00010000
 	LBBO	&R11, R10, 0, 4
@@ -46,6 +44,8 @@ ci6:	SET	R30, R30, 8
 	ADD	R12, R12, 4
 	QBEQ	cond12, R11, R12
 ci13:	SET	R30, R30, 8
+	NOP
+	NOP
 	JMP	sram
 
 cond7:
@@ -79,14 +79,32 @@ pwm:
 valor_fijo:
 	XIN	0x0b, &R29.b0, 0x04
 	MOV	R30, R29
-	JMP r3.w2
+aux_F:	SET	R30, R30, 8
+	NOP
+	QBBS	volver, R31, 31
+	NOP
+	CLR	R30, R30, 8
+	NOP
+	JMP	aux_F
 
 pulso:
 	XIN	0x0b, &R29.b0, 0x04
 	MOV	R30, R29
+	SET	R30, R30, 8
+	NOP
+	QBBS	volver, R31, 31
+	NOP
 	DELAY	100000000
 	LDI	R30, 0
-	JMP r3.w2
+	NOP
+	NOP
+aux_P:	SET	R30, R30, 8
+	NOP
+	QBBS	volver, R31, 31
+	NOP
+	CLR	R30, R30, 8
+	NOP
+	JMP	aux_P
 
 parar:
 	JMP r3.w2
