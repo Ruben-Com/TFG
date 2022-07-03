@@ -36,6 +36,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <pru_cfg.h>
 #include <pru_intc.h>
@@ -50,6 +51,7 @@
 #define HOST_PRU0_TO_PRU1		HOST1_INT
 
 extern void start0_F(uint16_t);
+extern void start0_P(uint16_t);
 extern void start0_S(uint16_t);
 extern void start0_I(void);
 extern void start0_H(void);
@@ -88,20 +90,31 @@ struct pru_rpmsg_transport transport;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 				if(payload[0]=='F'){
-					start0_F(len); //CAMBIAR EL PARAMETRO DE LA FUNCION
+					param = atoi(&payload[1]);
+					start0_F(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_valor_fijo\n", sizeof("Mostrando_valor_fijo\n"));
+				} else if(payload[0]=='P'){
+					param = atoi(&payload[1]);
+					start0_P(param);
+					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
 				} else if(payload[0]=='S'){
-					char aux[] = payload[1];
-					param = atoi(aux);
+					param = atoi(&payload[1]);
 					start0_S(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_senoidal\n", sizeof("Mostrando_senal_senoidal\n"));
 				} else if(payload[0]=='I'){
 					start0_I();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Interrumpiendo_senal\n", sizeof("Interrumpiendo_senal\n"));
 				} else if(payload[0]=='H'){
 					start0_H();
 					generate_sys_eve(SE_PRU0_TO_PRU1);
+					pru_rpmsg_send(&transport, dst, src, "Apagando_PRUs\n", sizeof("Apagando_PRUs\n"));
 					__halt();
+				} else{
+					pru_rpmsg_send(&transport, dst, src, "Opcion_no_valida\n", sizeof("Opcion_no_valida\n"));
 				}
 			}
 		}

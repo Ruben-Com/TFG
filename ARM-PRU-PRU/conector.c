@@ -6,11 +6,10 @@ void clear(void);
 
 void main()
 {
-  int opcion=0, parametro=0;
+  int opcion=0, parametro=0, i=0;
   char valores[50], respuesta[20], codigo[1000];
   FILE *file;
-  while(opcion!=9){
-
+  do{
     do{
     	printf("\n\nSeleccione una opcion:\n"
 		"\t1) Diente de sierra\n" 
@@ -36,83 +35,57 @@ void main()
  
     switch(opcion){
     	case 1:
-		strcpy(codigo, "");
-		codigo[0]="D";
+		strcpy(codigo, "D");
 		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
-    		scanf("%c", codigo[1]);
-		if(codigo[1] < "1" || codigo[1] > "3")
-			codigo[1]="1";
-		//strcpy(valores, "");
+    		scanf("%c", &codigo[1]);
+		clear();
 		break;    
     	case 2:
-		strcpy(codigo, "");
-		codigo[0]="S";
+		strcpy(codigo, "S");
 		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
-    		//scanf("%c", codigo[1]);
+    		scanf("%c", &codigo[1]);
 		clear();
-		//if(codigo[1] < "1" || codigo[1] > "3")
-		//	codigo[1]="1";
-		//strcpy(valores, "");
-		printf("\n\n%s\n\n", codigo);
 		break;    
     	case 3:
-		strcpy(codigo, "");
-		codigo[0]="T";
+		strcpy(codigo, "T");
 		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
     		scanf("%c", &codigo[1]);
-		if(codigo[1] < "1" || codigo[1] > "3")
-			codigo[1]="1";
-		//strcpy(valores, "");
+		clear();
 		break;    
     	case 4:
-		strcpy(codigo, "");
-		codigo[0]="W";
+		strcpy(codigo, "W");
 		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
     		scanf("%c", &codigo[1]);
-		if(codigo[1] < "1" || codigo[1] > "3")
-			codigo[1]="1";
-		//strcpy(valores, "");
+		clear();
 		break;    
     	case 5:
-		strcpy(codigo, "");
-		codigo[0]="F";
+		strcpy(codigo, "F");
 		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
-    		scanf("%c", &codigo[1]);
-		if(codigo[1] < "1" || codigo[1] > "3")
-			codigo[1]="1";
-		//strcpy(valores, "");
+    		scanf("%s", &codigo[1]);
+		for(i=1; i<4 && codigo[i]!='\n'; i++){
+		  if(codigo[i]=='\n')
+			codigo[i]="";
+		}
+		clear();
 		break;    
     	case 6:
-		strcpy(codigo, "");
-		codigo[0]="P";
+		strcpy(codigo, "P");
 		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
-    		scanf("%s", &codigo[1]);
-		if(codigo[1] < "1" || codigo[1] > "3")
-			codigo[1]="1";
-		//strcpy(valores, "");
+    		scanf("%c", &codigo[1]);
+		clear();
 		break;    
     	case 7:
-		strcpy(codigo, "");
-		codigo[0]="C";
-    		scanf("%s", &codigo[1]);
-		if(codigo[1] < "1" || codigo[1] > "3")
-			codigo[1]="1";
-		//strcpy(valores, "");
+		strcpy(codigo, "C");
+		clear();
 		break;    
     	case 8:
-		strcpy(codigo, "");
-		codigo[0]="I";
+		strcpy(codigo, "I");
 		break;    
     	case 9:
-		strcpy(codigo, "");
-		codigo[0]="H";
+		strcpy(codigo, "H");
 		break;    
     }
     fprintf(file,"%s", codigo);
-//    if(parametro!=-1)
-//	    fprintf(file, "%d", parametro);
-//    if(strcmp(valores, "")!=0)
-//	    fprintf(file, "%s", valores);
     fclose(file);
 
     if ((file = fopen("/dev/rpmsg_pru30","r")) == NULL){
@@ -126,7 +99,7 @@ void main()
     printf("\n%s\n\n\n", respuesta);
     fclose(file);
 
-  }
+  }while(opcion!=9);
 }
 
 

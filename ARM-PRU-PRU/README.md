@@ -11,7 +11,7 @@ The executable "connector" is the C program used to access the file /dev/rpmsg_3
 	Pulso			   (P)			[Valor=0xFF]					0x0003
 
 	Personalizado		   (C)
-	Interrumpir señl	   (I)									0xFF00
+	Interrumpir senal	   (I)									0xFF00
 	Apagar PRU		   (H)									0x00FF
 
 IMPORTANT: For custom signals, when increasing the value of bytes to read we have to start with 4 as the first 4 bytes will be used for signal size																			<br />

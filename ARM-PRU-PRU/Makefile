@@ -13,7 +13,10 @@ INCLUDE=--include_path=$(PRU_CGT)/include --include_path=./include
 LINKER_COMMAND_FILE_1=./AM335x_PRU_intc.cmd
 LINKER_COMMAND_FILE_2=./AM335x_PRU.cmd
 
-all: clean create compile link configure load_firm
+all: clean conector create compile link configure load_firm
+
+conector: conector.c
+	@gcc conector.c -o conector
 
 create:
 	@echo 'Creating $(GEN_DIR) directory'
