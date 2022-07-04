@@ -38,10 +38,8 @@ sram:
 	ADD	R12, R12, 4
 	QBBS	volver, R31, 31
 ci6:	SET	R30, R30, 8
-	DELAY	10000000
 	QBEQ	cond7, R11, R12
 	LBBO	&R30, R10, R12, 4 
-	DELAY	10000000
 	ADD	R12, R12, 4
 	QBEQ	cond12, R11, R12
 ci13:	SET	R30, R30, 8
@@ -50,19 +48,15 @@ ci13:	SET	R30, R30, 8
 	JMP	sram
 
 cond7:
-	MOV	R27, R30	;para comprobar que funciona bien
 	LBBO	&R30, R10, 4, 4
-	MOV	R28, R30	;para comprobar que funciona bien
 	DELAY	10000000
 	LDI	R12, 8
 	JMP	ci13
 
 cond12:
-	MOV	R25, R30	;para comprobar que funciona bien
 	SET	R30, R30, 8
 	LDI	R12, 4
 	LBBO	&R30, R10, R12, 4
-	MOV	R26, R30	;para comprobar que funciona bien
 	DELAY	10000000
 	ADD	R12, R12, 4
 	JMP	ci6
