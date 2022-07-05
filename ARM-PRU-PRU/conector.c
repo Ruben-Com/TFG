@@ -46,7 +46,7 @@ void main()
 		break;    
     	case 4:
 		strcpy(codigo, "W");
-		printf("\n\nIntroduzca una velocidad (1 (mas rapida), 2 o 3 (mas lenta)):\n\n");
+		printf("\n\nIntroduzca un valor para tiempo en alto (1 (25%), 2 (50%) o 3 (75%)):\n\n");
     		scanf("%c", &codigo[1]);
 		clear();
 		break;    

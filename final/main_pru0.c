@@ -55,6 +55,7 @@ extern void start0_P(uint16_t);
 extern void start0_S(uint16_t);
 extern void start0_D(uint16_t);
 extern void start0_T(uint16_t);
+extern void start0_W(uint16_t);
 extern void start0_I(void);
 extern void start0_H(void);
 volatile register uint32_t __R31;
@@ -92,30 +93,53 @@ struct pru_rpmsg_transport transport;
 			/* Receive all available messages, multiple messages can be sent per kick */
 			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 				if(payload[0]=='F'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_valor_fijo\n", sizeof("Mostrando_valor_fijo\n"));
 					param = atoi(&payload[1]);
 					start0_F(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Mostrando_valor_fijo\n", sizeof("Mostrando_valor_fijo\n"));
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_valor_fijo\n", sizeof("Mostrando_valor_fijo\n"));
 				} else if(payload[0]=='P'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
 					param = atoi(&payload[1]);
 					start0_P(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
 				} else if(payload[0]=='S'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_senoidal\n", sizeof("Mostrando_senal_senoidal\n"));
 					param = atoi(&payload[1]);
 					start0_S(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_senoidal\n", sizeof("Mostrando_senal_senoidal\n"));
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_senoidal\n", sizeof("Mostrando_senal_senoidal\n"));
 				} else if(payload[0]=='D'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_diente_de_sierra\n", sizeof("Mostrando_diente_de_sierra\n"));
 					param = atoi(&payload[1]);
 					start0_D(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Mostrando_diente_de_sierra\n", sizeof("Mostrando_diente_de_sierra\n"));
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_diente_de_sierra\n", sizeof("Mostrando_diente_de_sierra\n"));
 				} else if(payload[0]=='T'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_triangular\n", sizeof("Mostrando_senal_triangular\n"));
 					param = atoi(&payload[1]);
 					start0_T(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
-					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_triangular\n", sizeof("Mostrando_senal_triangular\n"));
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_triangular\n", sizeof("Mostrando_senal_triangular\n"));
+				} else if(payload[0]=='W'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_pwm\n", sizeof("Mostrando_senal_pwm\n"));
+					param = atoi(&payload[1]);
+					start0_W(param);
+					generate_sys_eve(SE_PRU0_TO_PRU1);
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_pwm\n", sizeof("Mostrando_senal_pwm\n"));
 				} else if(payload[0]=='I'){
 					start0_I();
 					generate_sys_eve(SE_PRU0_TO_PRU1);

@@ -43,13 +43,10 @@ ci6:	SET	R30, R30, 8
 	ADD	R12, R12, 4
 	QBEQ	cond12, R11, R12
 ci13:	SET	R30, R30, 8
-	NOP
-	NOP
 	JMP	sram
 
 cond7:
 	LBBO	&R30, R10, 4, 4
-	DELAY	10000000
 	LDI	R12, 8
 	JMP	ci13
 
@@ -57,7 +54,6 @@ cond12:
 	SET	R30, R30, 8
 	LDI	R12, 4
 	LBBO	&R30, R10, R12, 4
-	DELAY	10000000
 	ADD	R12, R12, 4
 	JMP	ci6
 
@@ -72,7 +68,22 @@ scratch_pad:
 
 pwm:
 	XIN	0x0b, &R27, 0x0C
-	JMP r3.w2
+vol_tH:	LDI	R26, 0
+	NOP
+pwm_tH:	MOV	R30, R29
+	ADD	R26, R26, 1
+	NOP
+	SET	R30, R30, 8
+	QBBS	volver, R31, 31
+	NOP
+	QBNE	pwm_tH, R26, R27
+pwm_tL:	MOV	R30, R28
+	ADD	R26, R26, 1
+	QBBS	volver, R31, 31
+	SET	R30, R30, 8
+	QBEQ	vol_tH, R26, 4
+	NOP
+	JMP	pwm_tL
 	
 
 valor_fijo:
@@ -93,7 +104,6 @@ pulso:
 	NOP
 	QBBS	volver, R31, 31
 	NOP
-	DELAY	100000000
 	LDI	R30, 0
 	NOP
 	NOP

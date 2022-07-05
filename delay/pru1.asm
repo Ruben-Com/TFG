@@ -91,4 +91,74 @@ medir3:	LBBO	&R21, R10, 12, 4
 	LDI32	R6, 4			;tarda un ciclo mas que LDI
 	LBBO	&R22, R10, 12, 4
 
+	MOV	R30, R29	;PWM TH
+	ADD	R26, R26, 1
+	NOP
+	SET	R30, R30, 8
+	QBBS	medir4, R31, 31
+	NOP
+	JMP	medir4
+medir4:	LBBO	&R24, R10, 12, 4
+
+	MOV	R30, R28	;PWM TL
+	ADD	R26, R26, 1
+	QBBS	medir5, R31, 31
+	SET	R30, R30, 8
+	QBEQ	medir5, R26, 4
+	NOP
+	JMP	medir5
+medir5:	LBBO	&R25, R10, 12, 4
+
+	LBBO	&R30, R9, 0, 4	;ciclo normal 
+	ADD	R12, R12, 4
+	QBBS	medir6, R31, 31
+	SET	R30, R30, 8
+	QBEQ	medir6, R11, R12
+	LBBO	&R30, R9, 0, 4 
+	ADD	R12, R12, 4
+	QBEQ	medir6, R11, R12
+	SET	R30, R30, 8
+	JMP	medir6
+medir6:	LBBO	&R26, R10, 12, 4
+
+	LBBO	&R30, R9, 0, 4	;ciclo con cond7 
+	ADD	R12, R12, 4
+	QBBS	medir7, R31, 31
+	SET	R30, R30, 8
+	QBEQ	medir7, R11, R12
+	LBBO	&R30, R9, 4, 4
+	LDI	R12, 8
+	JMP	ci13
+ci13:	SET	R30, R30, 8
+	JMP	medir7
+medir7:	LBBO	&R27, R10, 12, 4
+
+	LBBO	&R30, R9, 0, 4	;ciclo con cond12
+	ADD	R12, R12, 4
+	QBBS	medir8, R31, 31
+	SET	R30, R30, 8
+	QBEQ	medir8, R11, R12
+	LBBO	&R30, R9, 0, 4 
+	ADD	R12, R12, 4
+	QBEQ	medir8, R11, R12
+
+	SET	R30, R30, 8
+	LDI	R12, 4
+	LBBO	&R30, R9, R12, 4
+	ADD	R12, R12, 4
+	SET	R30, R30, 8
+	QBBS	medir8, R31, 31
+	QBEQ	medir8, R11, R12
+	LBBO	&R30, R9, R12, 4 
+	ADD	R12, R12, 4
+	QBEQ	medir8, R11, R12
+	SET	R30, R30, 8
+	JMP	medir8
+
+medir8:	LBBO	&R28, R10, 12, 4
+
+	QBEQ	medir9, R11, R12
+medir9:	LBBO	&R29, R10, 12, 4
+
+
 	HALT

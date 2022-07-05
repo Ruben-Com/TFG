@@ -14,7 +14,7 @@ The executable "connector" is the C program used to access the file /dev/rpmsg_3
 	Interrumpir senal	   (I)									0xFF00
 	Apagar PRU		   (H)									0x00FF
 
-IMPORTANT: For custom signals, when increasing the value of bytes to read we have to start with 4 as the first 4 bytes will be used for signal size																			<br />
+IMPORTANT: The byte limit should be 4 bytes higher than communicated as the first 4 bytes are used for signal size			<br />
 For PRU communication, I will use the first 4 bytes of SRAM (starting at 0x0001_0000). The 2 less significant bytes contain the number of bytes that will be stored in SRAM. If this value is 0x0000, the PRU will check for the 2 most significant bytes (they contain the code for the signal/action). If their [2 MS bytes] value is 0x00FF it will stop the current signal and if it is 0xFF00 it will turn off the PRU. There will also exist the posibility of the value being 0x0001 (PWM), 0x0002 (Valor fijo) and 0x0003 (Pulso). 
 For PWM, I will store both values in R28 (low) and R29 (high). It will also store the time percentage in R27 (only 3 possible values (1==25%, 2==50%, 3==75%)).																		<br />
 For Valor fijo, I will store the value passed as a parameter in R30.									<br />

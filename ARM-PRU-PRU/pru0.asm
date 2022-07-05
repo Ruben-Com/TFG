@@ -13,15 +13,26 @@
 	.cdecls "main_pru0.c"
 
 	.clink
-	;.global start0_F
+
+
+start0_W:
+	LDI32	R10, 0x00010000
+	LDI32 	R13, 0x00010000
+	SBBO	&R13, R10, 0, 4
+	MOV	R27, R14
+	LDI	R28, 0x00
+	LDI	R29, 0xFF
+	XOUT	0x0b, &R27.b0, 0x0C
+	JMP	R3.w2
+	HALT
+
+
 start0_F:
 	LDI32	R10, 0x00010000
 	LDI32 	R13, 0x00020000
 	SBBO	&R13, R10, 0, 4
 	MOV	R29, R14
 	XOUT	0x0b, &R29.b0, 0x04
-
-;* Return direction is stored in R3.w2 and return value is stored in R14
 	JMP	R3.w2
 	HALT
 
@@ -76,13 +87,10 @@ aux_D5:	SBBO	&R15, R10, R17, 4
 start0_T:
 	LDI32	R10, 0x00010000
 	QBNE	aux_T1, R14, 1
-;	LDI32 	R9, 1024
 	LDI32 	R9, 2040
 aux_T1:	QBNE	aux_T2, R14, 2
-;	LDI32 	R9, 2048
 	LDI32 	R9, 4080
 aux_T2:	QBNE	aux_T3, R14, 3
-;	LDI32 	R9, 3072
 	LDI32 	R9, 6120
 aux_T3:	SBBO	&R9, R10, 0, 4
 	LDI32 	R15, 0xFFFFFFFF
