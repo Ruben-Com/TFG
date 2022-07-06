@@ -36,8 +36,8 @@ volver:
 sram:
 	LBBO	&R30, R10, R12, 4 
 	ADD	R12, R12, 4
+	SET	R30, R30, 8
 	QBBS	volver, R31, 31
-ci6:	SET	R30, R30, 8
 	QBEQ	cond7, R11, R12
 	LBBO	&R30, R10, R12, 4 
 	ADD	R12, R12, 4
@@ -55,7 +55,14 @@ cond12:
 	LDI	R12, 4
 	LBBO	&R30, R10, R12, 4
 	ADD	R12, R12, 4
-	JMP	ci6
+	SET	R30, R30, 8
+	QBBS	volver, R31, 31
+	QBEQ	cond7, R11, R12
+	LBBO	&R30, R10, R12, 4 
+	ADD	R12, R12, 4
+	QBEQ	cond12, R11, R12
+	SET	R30, R30, 8
+	JMP	sram
 
 
 scratch_pad:
