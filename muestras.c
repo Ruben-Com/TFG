@@ -6,6 +6,7 @@
 void main(){
 	printf("Muestras de seno para velocidad 1:\n\n");
 	for(int i=0; i<300; i++){
-		printf("0x%x\n", (int)(255*(0.5+(0.5*sin(2*pi*i/300)))));
+		if(i%15 == 0) printf("\n");
+		printf("0x%x\n", (int)(4095*(0.5+(0.5*sin(2*pi*i/300)))));
 	}
 }
