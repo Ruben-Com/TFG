@@ -52,9 +52,9 @@ void main()
 		break;    
     	case 5:
 		strcpy(codigo, "F");
-		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
+		printf("\n\nIntroduzca un valor entre 0 y 4095:\n\n");
     		scanf("%s", &codigo[1]);
-		for(i=1; i<4 && codigo[i]!='\n'; i++){
+		for(i=1; i<5 && codigo[i]!='\n'; i++){
 		  if(codigo[i]=='\n')
 			codigo[i]="";
 		}
@@ -62,9 +62,9 @@ void main()
 		break;    
     	case 6:
 		strcpy(codigo, "P");
-		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
+		printf("\n\nIntroduzca un valor entre 0 y 4095:\n\n");
     		scanf("%s", &codigo[1]);
-		for(i=1; i<4 && codigo[i]!='\n'; i++){
+		for(i=1; i<5 && codigo[i]!='\n'; i++){
 		  if(codigo[i]=='\n')
 			codigo[i]="";
 		}
@@ -72,11 +72,6 @@ void main()
 		break;    
     	case 7:
 		strcpy(codigo, "R");
-		printf("\n\nIntroduzca una opción:\n
-				\t1) Pulso único\n
-				\t2) 2 pulsos solapados\n\n");
-    		scanf("%c", &codigo[1]);
-		clear();
 		break;    
     	case 8:
 		strcpy(codigo, "I");

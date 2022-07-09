@@ -48,6 +48,9 @@ configure:
 	@config-pin P8_41 pruout
 	@config-pin P8_40 pruout
 	@config-pin P8_39 pruout
+	@config-pin P8_30 pruout
+	@config-pin P8_29 pruout
+	@config-pin P8_28 pruout
 	@config-pin P8_27 pruout
 
 load_firm:

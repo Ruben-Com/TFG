@@ -25,7 +25,7 @@ start1:
 	XOUT	0x0b, &R29, 0x04
 	LBBO	&R13, R10, 12, 4
 
-	XOUT	0x0b, &R29, 0x08
+	XOUT	0x0b, &R20, 0x20
 	LBBO	&R14, R10, 12, 4
 
 	SBBO	&R20, R9, 0, 4

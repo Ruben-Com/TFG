@@ -22,7 +22,7 @@ start0:
 	XIN	0x0b, &R29, 0x04
 	LBBO	&R13, R10, 12, 4
 
-	XIN	0x0b, &R29, 0x08
+	XIN	0x0b, &R20, 0x20
 	LBBO	&R14, R10, 12, 4
 
 	LBBO	&R20, R9, 0, 4
@@ -30,5 +30,60 @@ start0:
 
 	LBBO	&R20, R9, 0, 40
 	LBBO	&R16, R10, 12, 4
+
+	
+	LBBO	&R30, R9, 0, 4 
+	NOP
+ci5:	ADD	R12, R12, 4
+	SET	R30, R30, 13
+	QBBS	medir1, R31, 31
+	QBEQ	medir1, R10, R12
+	LBBO	&R30, R9, 0, 4 
+	NOP
+	ADD	R12, R12, 4
+	QBEQ	medir1, R10, R12
+ci15:	SET	R30, R30, 13
+	JMP	medir1
+medir1:	LBBO	&R17, R10, 12, 4
+
+	LBBO	&R30, R9, 0, 4 
+	NOP
+	ADD	R12, R12, 4
+	SET	R30, R30, 13
+	QBBS	medir1, R31, 31
+	JMP	aux1
+aux1:	LBBO	&R30, R9, 4, 4
+	LDI	R12, 8
+	JMP	aux2
+aux2:	SET	R30, R30, 13
+	JMP	aux3
+aux3:	JMP	medir2
+medir2:	LBBO	&R18, R10, 12, 4
+
+	LBBO	&R30, R9, 0, 4 
+	NOP
+	ADD	R12, R12, 4
+	SET	R30, R30, 13
+	QBBS	medir1, R31, 31
+	QBEQ	medir1, R10, R12
+	LBBO	&R30, R9, 0, 4 
+	NOP
+	ADD	R12, R12, 4
+	JMP	aux4
+aux4:	SET	R30, R30, 13
+	LDI	R12, 4
+	LBBO	&R30, R9, 0, 4
+	JMP	aux5
+aux5:	ADD	R12, R12, 4
+	SET	R30, R30, 13
+	QBBS	medir1, R31, 31
+	QBEQ	medir1, R10, R12
+	LBBO	&R30, R9, 0, 4 
+	NOP
+	ADD	R12, R12, 4
+	QBEQ	medir1, R10, R12
+	SET	R30, R30, 13
+	JMP	medir3
+medir3:	LBBO	&R19, R10, 12, 4
 
 	HALT
