@@ -24,15 +24,15 @@ create:
 
 compile:
 	@echo 'Compiling project $(PROJ1) and $(PROJ2)'
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ1).object $(PROJ1).c
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM1).object pru0.asm
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ2).object $(PROJ2).c
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM2).object pru1.asm
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ1).object $(PROJ1).c
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM1).object pru0.asm
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ2).object $(PROJ2).c
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM2).object pru1.asm
 
 link:
 	@echo 'Linking project $(PROJ1) and $(PROJ2)'
-	@$(PRU_CGT)/bin/lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/lib -i$(PRU_CGT)/include -o $(GEN_DIR)/$(PROJ1).out $(GEN_DIR)/$(PROJ1).object $(GEN_DIR)/$(ASM1).object $(LINKER_COMMAND_FILE_1) $(LIBS)
-	@$(PRU_CGT)/bin/lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/lib -i$(PRU_CGT)/include -o $(GEN_DIR)/$(PROJ2).out $(GEN_DIR)/$(PROJ2).object $(GEN_DIR)/$(ASM2).object $(LINKER_COMMAND_FILE_1) $(LIBS)
+	@lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/lib -i$(PRU_CGT)/include -o $(GEN_DIR)/$(PROJ1).out $(GEN_DIR)/$(PROJ1).object $(GEN_DIR)/$(ASM1).object $(LINKER_COMMAND_FILE_1) $(LIBS)
+	@lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/lib -i$(PRU_CGT)/include -o $(GEN_DIR)/$(PROJ2).out $(GEN_DIR)/$(PROJ2).object $(GEN_DIR)/$(ASM2).object $(LINKER_COMMAND_FILE_1) $(LIBS)
 
 configure:
 	@echo 'Configuring P9_28-31 and P8_39-46 as pruout'
@@ -52,6 +52,8 @@ configure:
 	@config-pin P8_29 pruout
 	@config-pin P8_28 pruout
 	@config-pin P8_27 pruout
+	@config-pin P8_21 pruout
+	@config-pin P8_20 pruout
 
 load_firm:
 	@echo 'Loading firmware into PRU0 and PRU1'
