@@ -22,12 +22,10 @@ $E?:
 
 start1:
 	LDI32	R10, 0x00010000
-	LDI32	R9, 0x0000FFFF
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
-	QBEQ	radiacion, R11.w0, R9.w0
 	ADD	R11, R11, 4	;hay que tener en cuenta los 4 primeros bytes para el tamano de la senal
-	LDI	R12, 4
+	QBEQ	rad_1, R11.w0, 3	;0xFFFF + 0x4 = 0x3
 	JMP	sram
 	HALT
 
@@ -61,6 +59,9 @@ cond14:
 	JMP	ci5
 
 
+rad_1:	MOV	R11, R11.w2
+	ADD	R11, R11, 3	;me llevo 1 de sumar 0xffff y 0x4
+rad_2:	LDI	R12, 4
 radiacion:
 	LBBO	&R30, R10, R12, 4 
 	NOP
@@ -99,7 +100,7 @@ aux_R:	CLR	R30, R30, 12
 	ADD	R9, R9, 8
 	NOP
 	SET	R30, R30, 12
-	QBGT	radiacion, R8, R9
+	QBGT	rad_2, R8, R9
 	NOP
 	JMP	aux_R
 

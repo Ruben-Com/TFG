@@ -25,7 +25,7 @@ start1:
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	ADD	R11, R11, 4	;hay que tener en cuenta los 4 primeros bytes para el tamano de la senal
-	LDI	R12, 4
+	QBEQ	rad_1, R11.w0, 3	;0xFFFF + 0x4 = 0x3
 	JMP	sram
 	HALT
 
@@ -35,44 +35,78 @@ volver:
 
 sram:
 	LBBO	&R30, R10, R12, 4 
-	ADD	R12, R12, 4
-	SET	R30, R30, 8
+	NOP
+ci5:	ADD	R12, R12, 4
+	SET	R30, R30, 12
 	QBBS	volver, R31, 31
-	DELAY	10000000
-	QBEQ	cond7, R11, R12
+	QBEQ	cond8, R11, R12
 	LBBO	&R30, R10, R12, 4 
-	DELAY	10000000
+	NOP
 	ADD	R12, R12, 4
-	QBEQ	cond12, R11, R12
-ci13:	SET	R30, R30, 8
+	QBEQ	cond14, R11, R12
+ci15:	SET	R30, R30, 12
 	JMP	sram
 
-cond7:
-	MOV	R27, R30	;para comprobar que funciona bien
+cond8:
 	LBBO	&R30, R10, 4, 4
-	MOV	R28, R30	;para comprobar que funciona bien
-	DELAY	10000000
 	LDI	R12, 8
-	JMP	ci13
+	JMP	ci15
 
-cond12:
-	MOV	R25, R30	;para comprobar que funciona bien
-	SET	R30, R30, 8
+cond14:
+	SET	R30, R30, 12
 	LDI	R12, 4
 	LBBO	&R30, R10, R12, 4
-	MOV	R26, R30	;para comprobar que funciona bien
-	DELAY	10000000
-	ADD	R12, R12, 4
-	SET	R30, R30, 8
-	QBBS	volver, R31, 31
-	DELAY	10000000
-	QBEQ	cond7, R11, R12
+	JMP	ci5
+
+
+rad_1:	MOV	R11, R11.w2
+	ADD	R11, R11, 3	;me llevo 1 de sumar 0xffff y 0x4
+rad_2:	LDI	R12, 4
+radiacion:
 	LBBO	&R30, R10, R12, 4 
-	DELAY	10000000
+	NOP
 	ADD	R12, R12, 4
-	QBEQ	cond12, R11, R12
-	SET	R30, R30, 8
-	JMP	sram
+	SET	R30, R30, 12
+	DELAY	5000000
+	QBBS	volver, R31, 31
+	QBEQ	pausa1, R11, R12
+	LBBO	&R30, R10, R12, 4 
+	DELAY	5000000
+	NOP
+	ADD	R12, R12, 4
+	QBEQ	pausa2, R11, R12
+	SET	R30, R30, 12
+	JMP	radiacion
+
+pausa1:
+	LDI32	R9, 0x0104	;tarda un ciclo mas que LDI. 0x102 porque 200 muestras * 8 ciclos por muestra mas 10 hasta cuando se suman 8 menos los ocho que suman de la primera vez
+	CLR	R30, R30, 12
+	LDI	R12, 4
+	LDI32	R8, 0x124F80	;6 ms hasta el siguiente pulso
+	SET	R30, R30, 12
+	NOP
+	NOP
+	JMP	aux_R
+
+pausa2:
+	SET	R30, R30, 12
+	LDI	R12, 4
+	CLR	R30, R30, 12
+	LDI32	R8, 0x124F80	;6 ms hasta el siguiente pulso
+	NOP
+	SET	R30, R30, 12
+	LDI32	R9, 0x010C	;tarda un ciclo mas que LDI. 0x102 porque 200 muestras * 8 ciclos por muestra mas 10 ciclos hasta aux_R
+	NOP
+aux_R:	CLR	R30, R30, 12
+	QBBS	volver, R31, 31
+	ADD	R9, R9, 8
+	DELAY	100000000
+	NOP
+	SET	R30, R30, 12
+	QBGT	rad_2, R8, R9
+	DELAY	100000000
+	NOP
+	JMP	aux_R
 
 
 scratch_pad:
@@ -84,57 +118,96 @@ scratch_pad:
 	HALT
 
 pwm:
-	XIN	0x0b, &R27, 0x0C
-vol_tH:	LDI	R26, 0
+	XIN	0x0a, &R26, 16
+	MOV	R30, R26
 	NOP
-pwm_tH:	MOV	R30, R29
-	ADD	R26, R26, 1
-	NOP
-	DELAY	50000000
-	SET	R30, R30, 8
-	DELAY	50000000
+aux_W:	SET	R30.t12
 	QBBS	volver, R31, 31
+	MOV	R30, R27
 	NOP
-	QBNE	pwm_tH, R26, R27
-pwm_tL:	MOV	R30, R28
-	ADD	R26, R26, 1
-	DELAY	50000000
-	QBBS	volver, R31, 31
-	SET	R30, R30, 8
-	DELAY	50000000
-	QBEQ	vol_tH, R26, 4
+	SET	R30.t12
 	NOP
-	JMP	pwm_tL
+	MOV	R30, R28
+	NOP	
+	SET	R30.t12
+	NOP
+	MOV	R30, R29
+	NOP
+	SET	R30.t12
+	XIN	0x0b, &R26, 16
+	MOV	R30, R26
+	NOP
+	SET	R30.t12
+	NOP
+	MOV	R30, R27
+	NOP
+	SET	R30.t12
+	NOP
+	MOV	R30, R28
+	NOP
+	SET	R30.t12
+	NOP
+	MOV	R30, R29
+	NOP
+	SET	R30.t12
+	XIN	0x0c, &R26, 16
+	MOV	R30, R26
+	NOP
+	SET	R30.t12
+	NOP
+	MOV	R30, R27
+	NOP
+	SET	R30.t12
+	NOP
+	MOV	R30, R28
+	NOP
+	SET	R30.t12
+	NOP
+	MOV	R30, R29
+	NOP
+	SET	R30.t12
+	XIN	0x0a, &R26, 16
+	MOV	R30, R26
+	JMP	aux_W
+;	XIN	0x0b, &R27, 0x0C
+;vol_tH:	LDI	R26, 0
+;	NOP
+;pwm_tH:	MOV	R30, R29
+;	ADD	R26, R26, 1
+;	NOP
+;	SET	R30, R30, 8
+;	QBBS	volver, R31, 31
+;	NOP
+;	QBNE	pwm_tH, R26, R27
+;pwm_tL:	MOV	R30, R28
+;	ADD	R26, R26, 1
+;	QBBS	volver, R31, 31
+;	SET	R30, R30, 8
+;	QBEQ	vol_tH, R26, 4
+;	NOP
+;	JMP	pwm_tL
 	
 
 valor_fijo:
 	XIN	0x0b, &R29.b0, 0x04
 	MOV	R30, R29
-aux_F:	SET	R30, R30, 8
+	SET	R30, R30, 12
 	NOP
+aux_F:	CLR	R30, R30, 12
 	QBBS	volver, R31, 31
-	NOP
-	CLR	R30, R30, 8
-	NOP
+	SET	R30, R30, 12
 	JMP	aux_F
 
 pulso:
 	XIN	0x0b, &R29.b0, 0x04
 	MOV	R30, R29
-	SET	R30, R30, 8
+	SET	R30, R30, 12
 	NOP
-	QBBS	volver, R31, 31
-	NOP
-	DELAY	100000000
 	LDI	R30, 0
 	NOP
-	NOP
-aux_P:	SET	R30, R30, 8
-	NOP
+aux_P:	SET	R30, R30, 12
 	QBBS	volver, R31, 31
-	NOP
-	CLR	R30, R30, 8
-	NOP
+	CLR	R30, R30, 12
 	JMP	aux_P
 
 parar:

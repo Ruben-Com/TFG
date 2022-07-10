@@ -56,6 +56,7 @@ extern void start0_S(uint16_t);
 extern void start0_D(uint16_t);
 extern void start0_T(uint16_t);
 extern void start0_W(uint16_t);
+extern void start0_R(void);
 extern void start0_I(void);
 extern void start0_H(void);
 volatile register uint32_t __R31;
@@ -140,6 +141,13 @@ struct pru_rpmsg_transport transport;
 					start0_W(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
 					//pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_pwm\n", sizeof("Mostrando_senal_pwm\n"));
+				} else if(payload[0]=='R'){
+					start0_I();				//interrumpir antes de cambiar la senal
+					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
+					pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso_de_radiacion\n", sizeof("Mostrando_un_pulso_de_radiacion\n"));
+					start0_R();
+					generate_sys_eve(SE_PRU0_TO_PRU1);
+					//pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
 				} else if(payload[0]=='I'){
 					start0_I();
 					generate_sys_eve(SE_PRU0_TO_PRU1);

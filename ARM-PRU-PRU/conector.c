@@ -18,7 +18,7 @@ void main()
 		"\t4) PWM\n" 
 		"\t5) Valor fijo\n" 
 		"\t6) Pulso\n"
-		"\t7) Senal personalizada\n" 
+		"\t7) Pulso de radiación\n" 
 		"\t8) Interrumpir senal\n" 
 		"\t9) Apagar PRUs y terminar el programa\n\n");
     	scanf("%d", &opcion);
@@ -52,9 +52,9 @@ void main()
 		break;    
     	case 5:
 		strcpy(codigo, "F");
-		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
+		printf("\n\nIntroduzca un valor entre 0 y 4095:\n\n");
     		scanf("%s", &codigo[1]);
-		for(i=1; i<4 && codigo[i]!='\n'; i++){
+		for(i=1; i<5 && codigo[i]!='\n'; i++){
 		  if(codigo[i]=='\n')
 			codigo[i]="";
 		}
@@ -62,13 +62,16 @@ void main()
 		break;    
     	case 6:
 		strcpy(codigo, "P");
-		printf("\n\nIntroduzca un valor entre 0 y 255:\n\n");
-    		scanf("%c", &codigo[1]);
+		printf("\n\nIntroduzca un valor entre 0 y 4095:\n\n");
+    		scanf("%s", &codigo[1]);
+		for(i=1; i<5 && codigo[i]!='\n'; i++){
+		  if(codigo[i]=='\n')
+			codigo[i]="";
+		}
 		clear();
 		break;    
     	case 7:
-		strcpy(codigo, "C");
-		clear();
+		strcpy(codigo, "R");
 		break;    
     	case 8:
 		strcpy(codigo, "I");
