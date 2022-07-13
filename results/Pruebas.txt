@@ -1,6 +1,0 @@
-1)	Probar el ciclo de reloj con el osciloscopio
-2)	Probar las 3 pwm, los 3 senos, las 3 triangulares y los 3 dientes de sierra
-3)	Probar un par de valores fijos
-4)	Probar la exponencial unica y la real (2 superpuestas)
-4)	Probar una interrupcion de señal
-5)	Probar un cambio de señal

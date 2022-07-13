@@ -24,21 +24,20 @@ start1:
 	LDI32	R10, 0x00010000
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
+	LDI	R12, 4
 	ADD	R11, R11, 4	;hay que tener en cuenta los 4 primeros bytes para el tamano de la senal
 	QBEQ	rad_1, R11.w0, 3	;0xFFFF + 0x4 = 0x3
 	JMP	sram
-	HALT
 
 volver:
 	JMP	R3.w2
-	HALT
 
 sram:
 	LBBO	&R30, R10, R12, 4 
 	NOP
 ci5:	ADD	R12, R12, 4
-	SET	R30, R30, 12
 	QBBS	volver, R31, 31
+	SET	R30, R30, 12
 	QBEQ	cond8, R11, R12
 	LBBO	&R30, R10, R12, 4 
 	NOP
@@ -50,6 +49,8 @@ ci15:	SET	R30, R30, 12
 cond8:
 	LBBO	&R30, R10, 4, 4
 	LDI	R12, 8
+	NOP
+	NOP
 	JMP	ci15
 
 cond14:
@@ -66,8 +67,8 @@ radiacion:
 	LBBO	&R30, R10, R12, 4 
 	NOP
 	ADD	R12, R12, 4
-	SET	R30, R30, 12
 	QBBS	volver, R31, 31
+	SET	R30, R30, 12
 	QBEQ	pausa1, R11, R12
 	LBBO	&R30, R10, R12, 4 
 	NOP
@@ -114,7 +115,7 @@ scratch_pad:
 	HALT
 
 pwm:
-	XIN	0x0a, &R26, 16
+	XIN	0x0a, &R26, 0x10
 	MOV	R30, R26
 	NOP
 aux_W:	SET	R30.t12
@@ -130,7 +131,7 @@ aux_W:	SET	R30.t12
 	MOV	R30, R29
 	NOP
 	SET	R30.t12
-	XIN	0x0b, &R26, 16
+	XIN	0x0b, &R26, 0x10
 	MOV	R30, R26
 	NOP
 	SET	R30.t12
@@ -146,7 +147,7 @@ aux_W:	SET	R30.t12
 	MOV	R30, R29
 	NOP
 	SET	R30.t12
-	XIN	0x0c, &R26, 16
+	XIN	0x0c, &R26, 0x10
 	MOV	R30, R26
 	NOP
 	SET	R30.t12
@@ -162,7 +163,7 @@ aux_W:	SET	R30.t12
 	MOV	R30, R29
 	NOP
 	SET	R30.t12
-	XIN	0x0a, &R26, 16
+	XIN	0x0a, &R26, 0x10
 	MOV	R30, R26
 	JMP	aux_W
 ;	XIN	0x0b, &R27, 0x0C

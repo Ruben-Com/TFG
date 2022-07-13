@@ -36,10 +36,6 @@ link:
 
 configure:
 	@echo 'Configuring P9_28-31 and P8_39-46 as pruout'
-	@config-pin P9_31 pruout
-	@config-pin P9_30 pruout
-	@config-pin P9_29 pruout
-	@config-pin P9_28 pruout
 	@config-pin P8_46 pruout
 	@config-pin P8_45 pruout
 	@config-pin P8_44 pruout
@@ -62,12 +58,12 @@ load_firm:
 	@echo $(PROJ1) > /sys/class/remoteproc/remoteproc1/firmware
 	@echo $(PROJ2) > /sys/class/remoteproc/remoteproc2/firmware
 
-start_prus:
+start:
 	@echo 'Starting PRUs'
 	@echo start > /sys/class/remoteproc/remoteproc1/state
 	@echo start > /sys/class/remoteproc/remoteproc2/state
 	
-stop_prus:
+stop:
 	@echo 'Stopping PRUs'
 	@echo stop > /sys/class/remoteproc/remoteproc1/state
 	@echo stop > /sys/class/remoteproc/remoteproc2/state

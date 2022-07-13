@@ -22,7 +22,7 @@ start0_W:
 	QBEQ	pwm_1, R14, 1
 	QBEQ	pwm_2, R14, 2
 	QBEQ	pwm_3, R14, 3
-	HALT
+	JMP	R3.w2
 
 pwm_1:
 	LDI	R26, 0xFFF
@@ -62,7 +62,6 @@ start0_F:
 	MOV	R29, R14
 	XOUT	0x0b, &R29.b0, 0x04
 	JMP	R3.w2
-	HALT
 
 
 start0_P:
@@ -72,7 +71,6 @@ start0_P:
 	MOV	R29, R14
 	XOUT	0x0b, &R29.b0, 0x04
 	JMP	R3.w2
-	HALT
 
 
 start0_I:
@@ -80,7 +78,6 @@ start0_I:
 	LDI32 	R13, 0x00FF0000
 	SBBO	&R13, R10, 0, 4
 	JMP	R3.w2
-	HALT
 
 
 start0_H:
@@ -88,7 +85,6 @@ start0_H:
 	LDI32 	R13, 0xFF000000
 	SBBO	&R13, R10, 0, 4
 	JMP	R3.w2
-	HALT
 
 
 start0_D:
@@ -109,7 +105,7 @@ aux_D5:	SBBO	&R15, R10, R17, 4
 	ADD	R16, R16, 1
 	ADD	R17, R17, 4
 	QBLT	aux_D5, R14, R16
-	QBLT	aux_D4, R15, R18
+	QBLT	aux_D4, R18, R15
 	JMP	R3.w2
 
 
