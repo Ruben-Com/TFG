@@ -20,15 +20,15 @@ create:
 
 compile:
 	@echo 'Compiling project $(PROJ)'
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ1).object $(PROJ1).c
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM1).object $(ASM1).asm
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ2).object $(PROJ2).c
-	@$(PRU_CGT)/bin/clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM2).object $(ASM2).asm
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ1).object $(PROJ1).c
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM1).object $(ASM1).asm
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(PROJ2).object $(PROJ2).c
+	@clpru $(INCLUDE) $(CFLAGS) -fe $(GEN_DIR)/$(ASM2).object $(ASM2).asm
 
 link:
 	@echo 'Linking project $(PROJ1) and $(PROJ2)'
-	@$(PRU_CGT)/bin/lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/include $(LFLAGS) -o $(GEN_DIR)/$(PROJ1).out $(GEN_DIR)/$(PROJ1).object $(GEN_DIR)/$(ASM1).object $(LINKER_COMMAND_FILE) $(LIBS) $(GEN_DIR)/$(PROJ1).object $(GEN_DIR)/$(ASM1).object
-	@$(PRU_CGT)/bin/lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/include $(LFLAGS) -o $(GEN_DIR)/$(PROJ2).out $(GEN_DIR)/$(PROJ2).object $(GEN_DIR)/$(ASM2).object $(LINKER_COMMAND_FILE) $(LIBS) $(GEN_DIR)/$(PROJ2).object $(GEN_DIR)/$(ASM2).object
+	@lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/include $(LFLAGS) -o $(GEN_DIR)/$(PROJ1).out $(GEN_DIR)/$(PROJ1).object $(GEN_DIR)/$(ASM1).object $(LINKER_COMMAND_FILE) $(LIBS) $(GEN_DIR)/$(PROJ1).object $(GEN_DIR)/$(ASM1).object
+	@lnkpru -i$(PRU_CGT)/lib -i$(PRU_CGT)/include $(LFLAGS) -o $(GEN_DIR)/$(PROJ2).out $(GEN_DIR)/$(PROJ2).object $(GEN_DIR)/$(ASM2).object $(LINKER_COMMAND_FILE) $(LIBS) $(GEN_DIR)/$(PROJ2).object $(GEN_DIR)/$(ASM2).object
 
 configure:
 	@echo 'Configuring P9_28-31 and P8_39-46 as pruout'
