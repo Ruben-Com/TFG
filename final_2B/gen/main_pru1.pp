@@ -1,0 +1,17 @@
+gen/main_pru1.object: main_pru1.c
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/stdint.h
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/_stdint40.h
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/stdio.h
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/_ti_config.h
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/linkage.h
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/stdarg.h
+gen/main_pru1.object: ./include/pru_cfg.h
+gen/main_pru1.object: ./include/pru_intc.h
+gen/main_pru1.object: ./include/rsc_types.h
+gen/main_pru1.object: ./include/pru_types.h
+gen/main_pru1.object: ./include/pru_virtqueue.h
+gen/main_pru1.object: ./include/pru_virtio_ring.h
+gen/main_pru1.object: ./include/pru_rpmsg.h
+gen/main_pru1.object: ./include/resource_table.h
+gen/main_pru1.object: /usr/share/ti/cgt-pru/include/stddef.h
+gen/main_pru1.object: pru_defs.h
