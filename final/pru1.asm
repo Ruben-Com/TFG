@@ -111,7 +111,6 @@ scratch_pad:
 	QBEQ	parar, R11.b2, 0xFF
 	QBEQ	pwm, R11.w2, 1
 	QBEQ	valor_fijo, R11.w2, 2
-	QBEQ	pulso, R11.w2, 3
 	HALT
 
 pwm:
@@ -194,18 +193,6 @@ aux_F:	CLR	R30, R30, 12
 	QBBS	volver, R31, 31
 	SET	R30, R30, 12
 	JMP	aux_F
-
-pulso:
-	XIN	0x0b, &R29.b0, 0x04
-	MOV	R30, R29
-	SET	R30, R30, 12
-	NOP
-	LDI	R30, 0
-	NOP
-aux_P:	SET	R30, R30, 12
-	QBBS	volver, R31, 31
-	CLR	R30, R30, 12
-	JMP	aux_P
 
 parar:
 	JMP r3.w2

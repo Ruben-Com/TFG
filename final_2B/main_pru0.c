@@ -51,7 +51,6 @@
 #define HOST_PRU0_TO_PRU1		HOST1_INT
 
 extern void start0_F(uint16_t);
-extern void start0_P(uint16_t);
 extern void start0_S(uint16_t);
 extern void start0_D(uint16_t);
 extern void start0_T(uint16_t);
@@ -101,14 +100,6 @@ struct pru_rpmsg_transport transport;
 					start0_F(param);
 					generate_sys_eve(SE_PRU0_TO_PRU1);
 					//pru_rpmsg_send(&transport, dst, src, "Mostrando_valor_fijo\n", sizeof("Mostrando_valor_fijo\n"));
-				} else if(payload[0]=='P'){
-					start0_I();				//interrumpir antes de cambiar la senal
-					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
-					pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
-					param = atoi(&payload[1]);
-					start0_P(param);
-					generate_sys_eve(SE_PRU0_TO_PRU1);
-					//pru_rpmsg_send(&transport, dst, src, "Mostrando_un_pulso\n", sizeof("Mostrando_un_pulso\n"));
 				} else if(payload[0]=='S'){
 					start0_I();				//interrumpir antes de cambiar la senal
 					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal

@@ -52,6 +52,7 @@
 
 extern void start0_F(uint16_t);
 extern void start0_S(uint16_t);
+extern void start0_prueba();
 extern void start0_D(uint16_t);
 extern void start0_T(uint16_t);
 extern void start0_W(uint16_t);
