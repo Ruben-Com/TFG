@@ -89,65 +89,93 @@ start0_H:
 
 start0_D:
 	LDI32	R10, 0x00010000
-	LDI32	R18, 0x0FF0
-	QBEQ	aux_D1, R14, 1
-	QBNE	aux_D2, R14, 2
-	LDI32 	R9, 1024
-aux_D2:	QBNE	aux_D3, R14, 3
-	LDI32 	R9, 1536
-aux_D3:	SBBO	&R9, R10, 0, 4
-	LDI32 	R15, 0xFFFFFFF0
+	LDI	R6, 0x0
+	LDI	R18, 0xFFF
+	LDI	R9, 0x2FFE
+	QBNE	aux_D1, R14, 1
+	LDI32 	R9, 8192
+aux_D1:	SBBO	&R9, R10, 0, 4
 	LDI32 	R17, 4
-aux_D4:	LDI32 	R16, 0
-	ADD	R15, R15, 0x10
-aux_D5:	SBBO	&R15.w0, R10, R17, 2
-	ADD	R16, R16, 1
+bucle_D:	LDI32 	R15, 0xFFFFFFFF
+aux_D2:	LDI32 	R16, 0
+	ADD	R15, R15, 0x1
+aux_D3:	SBBO	&R15.w0, R10, R17, 2
+	QBEQ	comienzo_D, R17, R9
+cont_D:	ADD	R16, R16, 1
 	ADD	R17, R17, 2
-	QBLT	aux_D5, R14, R16
-	QBLT	aux_D4, R18, R15
+	QBLT	aux_D3, R14, R16
+	QBLT	aux_D2, R18, R15
+	JMP	bucle_D
+
+comienzo_D:
+	QBNE	llamar_D, R6, 0
+	LDI	R31, 0x22
+	LDI	R6, 0x1
+llamar_D:	WBS	R31, 31
+	XIN	0x0a, &R5.b0, 0x04
+	QBNE	volver, R5, 0x1
+	LDI	R5, 0x0
+	XOUT	0x0a, &R5.b0, 0x04
+	SET	R31, R31, 30
+	LDI	R17, 0x2
+	JMP	cont_D
+
+volver:
 	JMP	R3.w2
 
-aux_D1:
-	LDI32	R10, 0x00010000
-	LDI32	R18, 0x0FFF
-	LDI32 	R9, 8192
-	SBBO	&R9, R10, 0, 4
-	LDI32 	R15, 0xFFFFFFFF
-	LDI32 	R17, 4
-aux_D6:	ADD	R15, R15, 0x1
-	SBBO	&R15.w0, R10, R17, 2
-	ADD	R17, R17, 2
-	QBLT	aux_D6, R18, R15
-	JMP	R3.w2
 
 
 start0_T:
 	LDI32	R10, 0x00010000
-	LDI32	R18, 0x0FF0
-	QBNE	aux_T1, R14, 1
-	LDI32 	R9, 1020
-aux_T1:	QBNE	aux_T2, R14, 2
-	LDI32 	R9, 2040
-aux_T2:	QBNE	aux_T3, R14, 3
-	LDI32 	R9, 3060
-aux_T3:	SBBO	&R9, R10, 0, 4
-	LDI32 	R15, 0xFFFFFFF0
+	LDI	R6, 0x0
+	LDI32	R18, 0x0FFF
+	LDI	R9, 0x2FFE
+	SBBO	&R9, R10, 0, 4
 	LDI32 	R17, 4
-aux_T4:	LDI32 	R16, 0
-	ADD	R15, R15, 0x10
-aux_T5:	SBBO	&R15.w0, R10, R17, 2
-	ADD	R16, R16, 1
+bucle_T:	LDI32 	R15, 0xFFFFFFFF
+aux_T1:	LDI32 	R16, 0
+	ADD	R15, R15, 0x1
+aux_T2:	SBBO	&R15.w0, R10, R17, 2
+	QBEQ	comienzo_T1, R17, R9
+cont_T1:	ADD	R16, R16, 1
 	ADD	R17, R17, 2
-	QBLT	aux_T5, R14, R16
-	QBNE	aux_T4, R15, R18
-aux_T6:	LDI32 	R16, 0
-	SUB	R15, R15, 0x10
-aux_T7:	SBBO	&R15.w0, R10, R17, 2
-	ADD	R16, R16, 1
+	QBLT	aux_T2, R14, R16
+	QBNE	aux_T1, R15, R18
+aux_T3:	LDI32 	R16, 0
+	SUB	R15, R15, 0x1
+aux_T4:	SBBO	&R15.w0, R10, R17, 2
+	QBEQ	comienzo_T2, R17, R9
+cont_T2:	ADD	R16, R16, 1
 	ADD	R17, R17, 2
-	QBLT	aux_T7, R14, R16
-	QBNE	aux_T6, R15, 0x10
-	JMP	R3.w2
+	QBLT	aux_T4, R14, R16
+	QBNE	aux_T3, R15, 0x1
+	JMP	bucle_T
+
+comienzo_T1:
+	QBNE	llamar_T1, R6, 0
+	LDI	R31, 0x22
+	LDI	R6, 0x1
+llamar_T1:	WBS	R31, 31
+	XIN	0x0a, &R5.b0, 0x04
+	QBNE	volver, R5, 0x1
+	LDI	R5, 0x0
+	XOUT	0x0a, &R5.b0, 0x04
+	SET	R31, R31, 30
+	LDI	R17, 0x2
+	JMP	cont_T1
+
+comienzo_T2:
+	QBNE	llamar_T2, R6, 0
+	LDI	R31, 0x22
+	LDI	R6, 0x1
+llamar_T2:	WBS	R31, 31
+	XIN	0x0a, &R5.b0, 0x04
+	QBNE	volver, R5, 0x1
+	LDI	R5, 0x0
+	XOUT	0x0a, &R5.b0, 0x04
+	SET	R31, R31, 30
+	LDI	R17, 0x2
+	JMP	cont_T2
 
 
 start0_R:

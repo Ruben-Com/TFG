@@ -6,6 +6,7 @@
 #define SE_PRU0_TO_ARM			16
 #define SE_ARM_TO_PRU0			17
 #define SE_PRU0_TO_PRU1			18
+#define SE_PRU1_TO_PRU0			19
 
 #define HOST1_INT			((uint32_t) 1<<31)
 #define HOST0_INT			((uint32_t) 1<<30)

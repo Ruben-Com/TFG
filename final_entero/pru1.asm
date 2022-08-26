@@ -21,10 +21,15 @@ $E?:
 	.endm
 
 start1:
-	LDI32	R10, 0x00010000
+	LDI32	R10, 0x10000
+	LDI32	R9, 0x2FFE
+	LDI32	R8, 0x2000
+	LDI	R5, 1
+	LDI 	R30, 0		;para comprobar
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	LDI	R12, 4
+	QBEQ	entero, R11, R9
 	ADD	R11, R11, 4	;hay que tener en cuenta los 4 primeros bytes para el tamano de la senal
 	QBEQ	rad_1, R11.w0, 3	;0xFFFF + 0x4 = 0x3
 	JMP	sram
@@ -60,6 +65,56 @@ cond14:
 	JMP	ci5
 
 
+;si la senal es mas grande que la memoria
+entero:
+	LBBO	&R30.w0, R10, R12, 2 
+	QBEQ	ent4, R5, R12
+ent5:	ADD	R12, R12, 2
+	QBBS	volver, R31, 31
+	SET	R30, R30, 12
+	QBEQ	ent8, R11, R12
+	LBBO	&R30.w0, R10, R12, 2 
+	QBEQ	ent12, R5, R12
+	ADD	R12, R12, 2
+	QBEQ	ent14, R11, R12
+ent15:	SET	R30, R30, 12
+	JMP	entero
+
+ent8:
+	LBBO	&R30.w0, R10, 4, 2
+	LDI	R12, 6
+	NOP
+	NOP
+	JMP	ent15
+
+ent14:
+	SET	R30, R30, 12
+	LDI	R12, 4
+	LBBO	&R30.w0, R10, R12, 2
+	JMP	ent5
+
+ent4:
+	ADD	R12, R12, 2
+	QBBS	volver, R31, 31
+	SET	R30, R30, 12
+	XOUT	0x0a, &R5.b0, 0x04
+	LBBO	&R30.w0, R10, R12, 2 
+	LDI	R31, 0x23
+	ADD	R12, R12, 2
+	LDI32	R20, 0xabcdef	;para comprobar
+	JMP	ent15
+
+ent12:
+	ADD	R12, R12, 2
+	XOUT	0x0a, &R5.b0, 0x04
+	SET	R30, R30, 12
+	LDI	R31, 0x23
+	LBBO	&R30.w0, R10, R12, 2 
+	LDI32	R20, 0xabcdef	;para comprobar
+	JMP	ent5
+
+
+;para el caso de la señal de radiacion
 rad_1:	MOV	R11, R11.w2
 	ADD	R11, R11, 3	;me llevo 1 de sumar 0xffff y 0x4
 rad_2:	LDI	R12, 4

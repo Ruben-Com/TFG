@@ -52,7 +52,6 @@
 
 extern void start0_F(uint16_t);
 extern void start0_S(uint16_t);
-extern void start0_prueba();
 extern void start0_D(uint16_t);
 extern void start0_T(uint16_t);
 extern void start0_W(uint16_t);
@@ -115,7 +114,7 @@ struct pru_rpmsg_transport transport;
 					pru_rpmsg_send(&transport, dst, src, "Mostrando_diente_de_sierra\n", sizeof("Mostrando_diente_de_sierra\n"));
 					param = atoi(&payload[1]);
 					start0_D(param);
-					generate_sys_eve(SE_PRU0_TO_PRU1);
+					//generate_sys_eve(SE_PRU0_TO_PRU1);
 					//pru_rpmsg_send(&transport, dst, src, "Mostrando_diente_de_sierra\n", sizeof("Mostrando_diente_de_sierra\n"));
 				} else if(payload[0]=='T'){
 					start0_I();				//interrumpir antes de cambiar la senal
@@ -123,7 +122,7 @@ struct pru_rpmsg_transport transport;
 					pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_triangular\n", sizeof("Mostrando_senal_triangular\n"));
 					param = atoi(&payload[1]);
 					start0_T(param);
-					generate_sys_eve(SE_PRU0_TO_PRU1);
+					//generate_sys_eve(SE_PRU0_TO_PRU1);
 					//pru_rpmsg_send(&transport, dst, src, "Mostrando_senal_triangular\n", sizeof("Mostrando_senal_triangular\n"));
 				} else if(payload[0]=='W'){
 					start0_I();				//interrumpir antes de cambiar la senal
