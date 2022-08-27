@@ -25,7 +25,7 @@ start1:
 	LDI32	R9, 0x2FFE
 	LDI32	R8, 0x2000
 	LDI	R5, 1
-	LDI 	R30, 0		;para comprobar
+	LDI 	R22, 0		;para comprobar
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	LDI	R12, 4
@@ -68,13 +68,13 @@ cond14:
 ;si la senal es mas grande que la memoria
 entero:
 	LBBO	&R30.w0, R10, R12, 2 
-	QBEQ	ent4, R5, R12
+	QBEQ	ent4, R8, R12
 ent5:	ADD	R12, R12, 2
 	QBBS	volver, R31, 31
 	SET	R30, R30, 12
 	QBEQ	ent8, R11, R12
 	LBBO	&R30.w0, R10, R12, 2 
-	QBEQ	ent12, R5, R12
+	QBEQ	ent12, R8, R12
 	ADD	R12, R12, 2
 	QBEQ	ent14, R11, R12
 ent15:	SET	R30, R30, 12
@@ -94,6 +94,7 @@ ent14:
 	JMP	ent5
 
 ent4:
+	ADD	R22, R22, 1	;para comprobar
 	ADD	R12, R12, 2
 	QBBS	volver, R31, 31
 	SET	R30, R30, 12
@@ -101,16 +102,15 @@ ent4:
 	LBBO	&R30.w0, R10, R12, 2 
 	LDI	R31, 0x23
 	ADD	R12, R12, 2
-	LDI32	R20, 0xabcdef	;para comprobar
 	JMP	ent15
 
 ent12:
+	ADD	R22, R22, 1	;para comprobar
 	ADD	R12, R12, 2
 	XOUT	0x0a, &R5.b0, 0x04
 	SET	R30, R30, 12
 	LDI	R31, 0x23
 	LBBO	&R30.w0, R10, R12, 2 
-	LDI32	R20, 0xabcdef	;para comprobar
 	JMP	ent5
 
 

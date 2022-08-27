@@ -90,6 +90,10 @@ start0_H:
 start0_D:
 	LDI32	R10, 0x00010000
 	LDI	R6, 0x0
+	LDI	R7, 19
+	LDI32	R8, 0x00020000
+	LDI	R22, 0x0	;para comprobar
+	LDI	R23, 0x0	;para comprobar
 	LDI	R18, 0xFFF
 	LDI	R9, 0x2FFE
 	QBNE	aux_D1, R14, 1
@@ -111,12 +115,14 @@ comienzo_D:
 	QBNE	llamar_D, R6, 0
 	LDI	R31, 0x22
 	LDI	R6, 0x1
-llamar_D:	WBS	R31, 31
+llamar_D:
+	WBS	R31, 30
+	ADD	R22, R22, 1	;para comprobar
 	XIN	0x0a, &R5.b0, 0x04
 	QBNE	volver, R5, 0x1
+	SBBO	&R7, R8, 0x24, 4
 	LDI	R5, 0x0
 	XOUT	0x0a, &R5.b0, 0x04
-	SET	R31, R31, 30
 	LDI	R17, 0x2
 	JMP	cont_D
 
