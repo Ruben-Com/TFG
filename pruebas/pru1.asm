@@ -23,8 +23,9 @@ $E?:
 
 startP:
 	LDI32	R6, 0
-prueba:	DELAY	10000000
+prueba:	DELAY	40000
 	ADD	R6, R6, 1
+	XOUT	0xa, &R6, 4
 	LDI32	R31, 0x23
 	JMP	prueba 
 

@@ -33,7 +33,7 @@ leer2:
 
 
 start0_P:
-	LDI32	R6, 0
+	LDI32	R7, 0
 	LDI32	R25, 0
 	LDI32	R26, 0
 	LDI32	R10, 0x00010000
@@ -51,7 +51,6 @@ start0_P:
 	SBBO	&R15, R13, 0x24, 4
 	SBBO	&R16, R13, 0x24, 4
 	LBBO	&R26, R13, R14, 4
-	ADD	R6, R6, 1
 prueba:	
 	WBS	R31, 30
 	LDI32	R31, 0
@@ -59,8 +58,11 @@ prueba:
 	;SBBO	&R15, R13, R14, 4
 	SBBO	&R15, R13, 0x24, 4
 	LBBO	&R28, R13, R14, 4
-	ADD	R6, R6, 1
+	ADD	R7, R7, 1
+	XIN	0xa, &R6, 4
+	QBNE	apagar, R6, R7
 	JMP	prueba
+apagar:	HALT
 
 start0_W:
 	LDI32	R10, 0x00010000

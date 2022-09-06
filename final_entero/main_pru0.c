@@ -72,6 +72,7 @@ struct pru_rpmsg_transport transport;
 
 	/* clear the status of the PRU-ICSS system event that the ARM will use to 'kick' us */
 	CT_INTC.SICR_bit.STS_CLR_IDX = SE_ARM_TO_PRU0;
+	CT_INTC.SICR_bit.STS_CLR_IDX = SE_PRU1_TO_PRU0;
 
 	/* Make sure the Linux drivers are ready for RPMsg communication */
 	status = &resourceTable.rpmsg_vdev.status;

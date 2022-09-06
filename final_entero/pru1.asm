@@ -25,7 +25,12 @@ start1:
 	LDI32	R9, 0x2FFE
 	LDI32	R8, 0x2000
 	LDI	R5, 1
-	LDI 	R22, 0		;para comprobar
+	LDI 	R6, 0		;para comprobar
+	LDI 	R25, 0		;para comprobar
+	LDI 	R26, 0		;para comprobar
+	LDI 	R27, 0		;para comprobar
+	LDI 	R28, 0		;para comprobar
+	LDI32 	R23, 80000		;para comprobar
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	LDI	R12, 4
@@ -73,7 +78,7 @@ ent5:	ADD	R12, R12, 2
 	QBBS	volver, R31, 31
 	SET	R30, R30, 12
 	QBEQ	ent8, R11, R12
-	LBBO	&R30.w0, R10, R12, 2 
+ent9:	LBBO	&R30.w0, R10, R12, 2 
 	QBEQ	ent12, R8, R12
 	ADD	R12, R12, 2
 	QBEQ	ent14, R11, R12
@@ -94,24 +99,16 @@ ent14:
 	JMP	ent5
 
 ent4:
-	ADD	R22, R22, 1	;para comprobar
 	ADD	R12, R12, 2
-	QBBS	volver, R31, 31
-	SET	R30, R30, 12
-	XOUT	0x0a, &R5.b0, 0x04
-	LBBO	&R30.w0, R10, R12, 2 
 	LDI	R31, 0x23
-	ADD	R12, R12, 2
-	JMP	ent15
+	SET	R30, R30, 12
+	JMP	ent9
 
 ent12:
-	ADD	R22, R22, 1	;para comprobar
 	ADD	R12, R12, 2
-	XOUT	0x0a, &R5.b0, 0x04
-	SET	R30, R30, 12
 	LDI	R31, 0x23
-	LBBO	&R30.w0, R10, R12, 2 
-	JMP	ent5
+	SET	R30, R30, 12
+	JMP	entero
 
 
 ;para el caso de la señal de radiacion
