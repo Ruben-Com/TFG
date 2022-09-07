@@ -92,6 +92,7 @@ struct pru_rpmsg_transport transport;
 			/* Clear the event status */
 			CT_INTC.SICR_bit.STS_CLR_IDX = SE_ARM_TO_PRU0;
 			/* Receive all available messages, multiple messages can be sent per kick */
+			strcpy(payload, "");
 			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {
 				if(payload[0]=='F'){
 					start0_I();				//interrumpir antes de cambiar la senal
@@ -113,6 +114,7 @@ struct pru_rpmsg_transport transport;
 					start0_I();				//interrumpir antes de cambiar la senal
 					generate_sys_eve(SE_PRU0_TO_PRU1);	//interrumpir antes de cambiar la senal
 					pru_rpmsg_send(&transport, dst, src, "Mostrando_diente_de_sierra\n", sizeof("Mostrando_diente_de_sierra\n"));
+					//pru_rpmsg_send(&transport, dst, src, payload, len);
 					param = atoi(&payload[1]);
 					start0_D(param);
 					//generate_sys_eve(SE_PRU0_TO_PRU1);

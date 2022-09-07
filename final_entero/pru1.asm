@@ -26,11 +26,6 @@ start1:
 	LDI32	R8, 0x2000
 	LDI	R5, 1
 	LDI 	R6, 0		;para comprobar
-	LDI 	R25, 0		;para comprobar
-	LDI 	R26, 0		;para comprobar
-	LDI 	R27, 0		;para comprobar
-	LDI 	R28, 0		;para comprobar
-	LDI32 	R23, 80000		;para comprobar
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	LDI	R12, 4

@@ -87,50 +87,13 @@ start0_H:
 	JMP	R3.w2
 
 
-start0_prueba:
-
-
-
-	LDI	R9, 0x2FFE
-	LDI32	R22, 0
-	LDI32	R25, 0
-	LDI32	R26, 0
-	LDI32	R10, 0x00010000
-	LDI32 	R13, 0x00020000
-	LDI32 	R14, 0x280
-	LDI32	R15, 19
-	LDI32	R16, 17
-	;SET	R15, R15, 19
-	SBBO	&R9, R10, 0, 4
-	LDI	R31, 0x22
-	WBS	R31, 30
-	LDI32	R31, 0
-	MOV	R21, R31
-	LDI32	R20, 0xabcdef
-	LBBO	&R25, R13, R14, 4
-	SBBO	&R15, R13, 0x24, 4
-	SBBO	&R16, R13, 0x24, 4
-	LBBO	&R26, R13, R14, 4
-	ADD	R22, R22, 1
-prueba:	
-	WBS	R31, 30
-	LDI32	R31, 0
-	LBBO	&R27, R13, R14, 4
-	;SBBO	&R15, R13, R14, 4
-	SBBO	&R15, R13, 0x24, 4
-	LBBO	&R28, R13, R14, 4
-	ADD	R22, R22, 1
-	JMP	prueba
-
-
-
-
 start0_D:
 	LDI32	R10, 0x00010000
 	LDI	R6, 0x0
-	LDI32	R7, 19
-	LDI32	R24, 17		;para comprobar
+	LDI32	R7, 0x280
 	LDI32	R8, 0x00020000
+	LDI32	R24, 17		;para comprobar
+	LDI32	R25, 19
 	LDI	R18, 0xFFF
 	LDI	R9, 0x2FFE
 	QBNE	aux_D1, R14, 1
@@ -146,16 +109,20 @@ cont_D:	ADD	R16, R16, 1
 	ADD	R17, R17, 2
 	QBLT	aux_D3, R14, R16
 	QBLT	aux_D2, R18, R15
-	JMP	bucle_D
+	QBNE	bucle_D, R14, 1
+	LDI	R31, 0x22
+	JMP	R3.w2
 
 comienzo_D:
 	QBNE	llamar_D, R6, 0
 	LDI32	R31, 0x22
 	LDI	R6, 0x1
+	;SBBO	&R24, R8, 0x24, 4	;para comprobar
 llamar_D:
 	WBS	R31, 30
-	SBBO	&R7, R8, 0x24, 4
-	SBBO	&R24, R8, 0x24, 4	;para comprobar
+	LBBO	&R26, R8, R7, 4
+	QBBS	volver, R26, 17
+	SBBO	&R25, R8, 0x24, 4
 	LDI	R17, 0x2
 	JMP	cont_D
 
@@ -167,8 +134,12 @@ volver:
 start0_T:
 	LDI32	R10, 0x00010000
 	LDI	R6, 0x0
-	LDI32	R18, 0x0FFF
+	LDI32	R7, 0x280
+	LDI32	R8, 0x00020000
 	LDI	R9, 0x2FFE
+	LDI32	R18, 0x0FFF
+	LDI32	R24, 17		;para comprobar
+	LDI32	R25, 19
 	SBBO	&R9, R10, 0, 4
 	LDI32 	R17, 4
 bucle_T:	LDI32 	R15, 0xFFFFFFFF
@@ -194,9 +165,12 @@ comienzo_T1:
 	QBNE	llamar_T1, R6, 0
 	LDI	R31, 0x22
 	LDI	R6, 0x1
-llamar_T1:	WBS	R31, 30
-	SBBO	&R7, R8, 0x24, 4
-	SBBO	&R24, R8, 0x24, 4	;para comprobar
+llamar_T1:
+	WBS	R31, 30
+	LBBO	&R26, R8, R7, 4
+	QBBS	volver, R26, 17
+	SBBO	&R25, R8, 0x24, 4
+	;SBBO	&R24, R8, 0x24, 4	;para comprobar
 	LDI	R17, 0x2
 	JMP	cont_T1
 
@@ -204,9 +178,12 @@ comienzo_T2:
 	QBNE	llamar_T2, R6, 0
 	LDI	R31, 0x22
 	LDI	R6, 0x1
-llamar_T2:	WBS	R31, 31
-	SBBO	&R7, R8, 0x24, 4
-	SBBO	&R24, R8, 0x24, 4	;para comprobar
+llamar_T2:
+	WBS	R31, 31
+	LBBO	&R26, R8, R7, 4
+	QBBS	volver, R26, 17
+	SBBO	&R25, R8, 0x24, 4
+	;SBBO	&R24, R8, 0x24, 4	;para comprobar
 	LDI	R17, 0x2
 	JMP	cont_T2
 
