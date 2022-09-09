@@ -117,7 +117,7 @@ comienzo_D:
 	QBNE	llamar_D, R6, 0
 	LDI32	R31, 0x22
 	LDI	R6, 0x1
-	;SBBO	&R24, R8, 0x24, 4	;para comprobar
+	SBBO	&R24, R8, 0x24, 4	;para comprobar
 llamar_D:
 	WBS	R31, 30
 	LBBO	&R26, R8, R7, 4
@@ -127,6 +127,7 @@ llamar_D:
 	JMP	cont_D
 
 volver:
+	LDI32	R28, 0x0000AAAA	;para comprobar
 	JMP	R3.w2
 
 
@@ -165,12 +166,12 @@ comienzo_T1:
 	QBNE	llamar_T1, R6, 0
 	LDI	R31, 0x22
 	LDI	R6, 0x1
+	SBBO	&R24, R8, 0x24, 4	;para comprobar
 llamar_T1:
 	WBS	R31, 30
 	LBBO	&R26, R8, R7, 4
 	QBBS	volver, R26, 17
 	SBBO	&R25, R8, 0x24, 4
-	;SBBO	&R24, R8, 0x24, 4	;para comprobar
 	LDI	R17, 0x2
 	JMP	cont_T1
 
@@ -178,12 +179,12 @@ comienzo_T2:
 	QBNE	llamar_T2, R6, 0
 	LDI	R31, 0x22
 	LDI	R6, 0x1
+	SBBO	&R24, R8, 0x24, 4	;para comprobar
 llamar_T2:
-	WBS	R31, 31
+	WBS	R31, 30
 	LBBO	&R26, R8, R7, 4
 	QBBS	volver, R26, 17
 	SBBO	&R25, R8, 0x24, 4
-	;SBBO	&R24, R8, 0x24, 4	;para comprobar
 	LDI	R17, 0x2
 	JMP	cont_T2
 
