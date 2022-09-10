@@ -24,8 +24,6 @@ start1:
 	LDI32	R10, 0x10000
 	LDI32	R9, 0x2FFE
 	LDI32	R8, 0x2000
-	LDI	R5, 1
-	LDI 	R6, 0		;para comprobar
 	LBBO	&R11, R10, 0, 4
 	QBEQ	scratch_pad, R11.w0, 0
 	LDI	R12, 4
@@ -125,7 +123,7 @@ radiacion:
 	JMP	radiacion
 
 pausa1:
-	LDI32	R9, 0x0104	;tarda un ciclo mas que LDI. 0x102 porque 200 muestras * 8 ciclos por muestra mas 10 hasta cuando se suman 8 menos los ocho que suman de la primera vez
+	LDI32	R9, 0
 	CLR	R30, R30, 12
 	LDI	R12, 4
 	LDI32	R8, 0x124F80	;6 ms hasta el siguiente pulso
@@ -141,7 +139,7 @@ pausa2:
 	LDI32	R8, 0x124F80	;6 ms hasta el siguiente pulso
 	NOP
 	SET	R30, R30, 12
-	LDI32	R9, 0x010C	;tarda un ciclo mas que LDI. 0x102 porque 200 muestras * 8 ciclos por muestra mas 10 ciclos hasta aux_R
+	LDI32	R9, 0
 	NOP
 aux_R:	CLR	R30, R30, 12
 	QBBS	volver, R31, 31
