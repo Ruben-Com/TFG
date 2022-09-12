@@ -89,9 +89,9 @@ start0_H:
 
 start0_D:
 	LDI32	R10, 0x00010000
-	LDI	R6, 0x0
-	LDI32	R7, 0x280
-	LDI32	R8, 0x00020000
+	LDI	R20, 0x0
+	LDI32	R21, 0x280
+	LDI32	R22, 0x00020000
 	LDI32	R24, 17
 	LDI32	R25, 19
 	LDI	R18, 0xFFF
@@ -114,15 +114,15 @@ cont_D:	ADD	R16, R16, 1
 	JMP	R3.w2
 
 comienzo_D:
-	QBNE	llamar_D, R6, 0
+	QBNE	llamar_D, R20, 0
 	LDI32	R31, 0x22
-	LDI	R6, 0x1
-	SBBO	&R24, R8, 0x24, 4
+	LDI	R20, 0x1
+	SBBO	&R24, R22, 0x24, 4
 llamar_D:
 	WBS	R31, 30
-	LBBO	&R26, R8, R7, 4
+	LBBO	&R26, R22, R21, 4
 	QBBS	volver, R26, 17
-	SBBO	&R25, R8, 0x24, 4
+	SBBO	&R25, R22, 0x24, 4
 	LDI	R17, 0x2
 	JMP	cont_D
 
@@ -133,9 +133,9 @@ volver:
 
 start0_T:
 	LDI32	R10, 0x00010000
-	LDI	R6, 0x0
-	LDI32	R7, 0x280
-	LDI32	R8, 0x00020000
+	LDI	R20, 0x0
+	LDI32	R21, 0x280
+	LDI32	R22, 0x00020000
 	LDI	R9, 0x2FFE
 	LDI32	R18, 0x0FFF
 	LDI32	R24, 17
@@ -162,28 +162,28 @@ cont_T2:	ADD	R16, R16, 1
 	JMP	bucle_T
 
 comienzo_T1:
-	QBNE	llamar_T1, R6, 0
+	QBNE	llamar_T1, R20, 0
 	LDI	R31, 0x22
-	LDI	R6, 0x1
-	SBBO	&R24, R8, 0x24, 4
+	LDI	R20, 0x1
+	SBBO	&R24, R22, 0x24, 4
 llamar_T1:
 	WBS	R31, 30
-	LBBO	&R26, R8, R7, 4
+	LBBO	&R26, R22, R21, 4
 	QBBS	volver, R26, 17
-	SBBO	&R25, R8, 0x24, 4
+	SBBO	&R25, R22, 0x24, 4
 	LDI	R17, 0x2
 	JMP	cont_T1
 
 comienzo_T2:
-	QBNE	llamar_T2, R6, 0
+	QBNE	llamar_T2, R20, 0
 	LDI	R31, 0x22
-	LDI	R6, 0x1
-	SBBO	&R24, R8, 0x24, 4
+	LDI	R20, 0x1
+	SBBO	&R24, R22, 0x24, 4
 llamar_T2:
 	WBS	R31, 30
-	LBBO	&R26, R8, R7, 4
+	LBBO	&R26, R22, R21, 4
 	QBBS	volver, R26, 17
-	SBBO	&R25, R8, 0x24, 4
+	SBBO	&R25, R22, 0x24, 4
 	LDI	R17, 0x2
 	JMP	cont_T2
 
