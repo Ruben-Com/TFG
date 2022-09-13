@@ -96,22 +96,20 @@ start0_D:
 	LDI32	R25, 19
 	LDI	R18, 0xFFF
 	LDI	R9, 0x2FFE
-	QBNE	aux_D1, R14, 1
-	LDI32 	R9, 8192
-aux_D1:	SBBO	&R9, R10, 0, 4
+	SBBO	&R9, R10, 0, 4
 	LDI32 	R17, 4
-bucle_D:	LDI32 	R15, 0xFFFFFFFF
-aux_D2:	LDI32 	R16, 0
+	QBEQ	aux_D3, R14, 1
+bucle_D:
+	LDI32 	R15, 0xFFFFFFFF
+aux_D1:	LDI32 	R16, 0
 	ADD	R15, R15, 0x1
-aux_D3:	SBBO	&R15.w0, R10, R17, 2
+aux_D2:	SBBO	&R15.w0, R10, R17, 2
 	QBEQ	comienzo_D, R17, R9
 cont_D:	ADD	R16, R16, 1
 	ADD	R17, R17, 2
-	QBLT	aux_D3, R14, R16
-	QBLT	aux_D2, R18, R15
-	QBNE	bucle_D, R14, 1
-	LDI	R31, 0x22
-	JMP	R3.w2
+	QBLT	aux_D2, R14, R16
+	QBLT	aux_D1, R18, R15
+	JMP	bucle_D
 
 comienzo_D:
 	QBNE	llamar_D, R20, 0
@@ -125,6 +123,28 @@ llamar_D:
 	SBBO	&R25, R22, 0x24, 4
 	LDI	R17, 0x2
 	JMP	cont_D
+
+aux_D3:	LDI32 	R15, 0xFFFFFFFF
+aux_D4:	ADD	R15, R15, 0x1
+	SBBO	&R15.w0, R10, R17, 2
+	QBEQ	comienzo_D1, R17, R9
+cont_D1:	ADD	R17, R17, 2
+	QBLT	aux_D4, R18, R15
+	JMP	aux_D3
+
+comienzo_D1:
+	QBNE	llamar_D1, R20, 0
+	LDI32	R31, 0x22
+	LDI	R20, 0x1
+	SBBO	&R24, R22, 0x24, 4
+llamar_D1:
+	WBS	R31, 30
+	LBBO	&R26, R22, R21, 4
+	QBBS	volver, R26, 17
+	SBBO	&R25, R22, 0x24, 4
+	LDI	R17, 0x2
+	JMP	cont_D1
+
 
 volver:
 	JMP	R3.w2
@@ -142,6 +162,7 @@ start0_T:
 	LDI32	R25, 19
 	SBBO	&R9, R10, 0, 4
 	LDI32 	R17, 4
+	QBEQ	aux_T5, R14, 1
 bucle_T:	LDI32 	R15, 0xFFFFFFFF
 aux_T1:	LDI32 	R16, 0
 	ADD	R15, R15, 0x1
@@ -186,6 +207,47 @@ llamar_T2:
 	SBBO	&R25, R22, 0x24, 4
 	LDI	R17, 0x2
 	JMP	cont_T2
+
+aux_T5:	LDI32 	R15, 0xFFFFFFFF
+aux_T6:	ADD	R15, R15, 0x1
+	SBBO	&R15.w0, R10, R17, 2
+	QBEQ	comienzo_T3, R17, R9
+cont_T3:	ADD	R17, R17, 2
+	QBNE	aux_T6, R15, R18
+aux_T7:	SUB	R15, R15, 0x1
+	SBBO	&R15.w0, R10, R17, 2
+	QBEQ	comienzo_T4, R17, R9
+cont_T4:	ADD	R17, R17, 2
+	QBNE	aux_T7, R15, 0x1
+	JMP	aux_T5
+
+comienzo_T3:
+	QBNE	llamar_T3, R20, 0
+	LDI	R31, 0x22
+	LDI	R20, 0x1
+	SBBO	&R24, R22, 0x24, 4
+llamar_T3:
+	WBS	R31, 30
+	LBBO	&R26, R22, R21, 4
+	QBBS	volver, R26, 17
+	SBBO	&R25, R22, 0x24, 4
+	LDI	R17, 0x2
+	JMP	cont_T3
+
+comienzo_T4:
+	QBNE	llamar_T4, R20, 0
+	LDI	R31, 0x22
+	LDI	R20, 0x1
+	SBBO	&R24, R22, 0x24, 4
+llamar_T4:
+	WBS	R31, 30
+	LBBO	&R26, R22, R21, 4
+	QBBS	volver, R26, 17
+	SBBO	&R25, R22, 0x24, 4
+	LDI	R17, 0x2
+	JMP	cont_T4
+
+
 
 
 start0_R:
@@ -759,7 +821,7 @@ sen3:
 	LDI32	R11, 0x00010130	;244+60 (ultimo offset mas ultima cantidad de bytes escrita)
 	LDI32	R12, 0x0001025C	;R11+300 (ultimo offset mas ultima cantidad de bytes escrita)
 	LDI32	R13, 0x00010388	;R12+300 (ultimo offset mas ultima cantidad de bytes escrita)
-	LDI32 	R9, 1200
+	LDI32 	R9, 600
 	SBBO	&R9, R10, 0, 4
 	LDI	R15.w0, 0x7ff
 	LDI	R15.w2, 0x82a

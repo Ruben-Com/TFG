@@ -53,7 +53,6 @@ cond8:
 	LBBO	&R30.w0, R10, 4, 2
 	LDI	R12, 6
 	NOP
-	NOP
 	JMP	ci15
 
 cond14:
@@ -81,7 +80,6 @@ ent15:	SET	R30, R30, 12
 ent8:
 	LBBO	&R30.w0, R10, 4, 2
 	LDI	R12, 6
-	NOP
 	NOP
 	JMP	ent15
 
