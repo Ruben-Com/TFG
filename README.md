@@ -1,10 +1,3 @@
-# BeagleBone-Black
-In this repository I will upload some working examples using the PRU modules in the BeagleBone Black.
-
-ASM                  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;        -> &ensp; Loads a program that uses a function in PRU assembly language                                  <br />
-C		                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	 -> &ensp; Loads a program using only C language                                                          <br />
-rpmsg_ARM-PRU_1_mess &ensp;                                                              -> &ensp; Uses 1 PRU to receive messages and send them back only once whenever they are received         <br />
-rpmsg_both_PRU	     &emsp;&emsp;&emsp;&emsp;	                                           -> &ensp; Both PRU are available for receiving messages and sending them back only once (not working)    <br />
-ex_ARM-PRU-PRU	     &emsp;&emsp;&emsp;&ensp;	                                           -> &ensp; One PRU listens to the commands sent by the ARM and sends values to the other PRU              <br />
-xin-xout	           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	                   -> &ensp; Tries to send values from one PRU to another using XIN and XOUT commands         <br />
-ARM-PRU-PRU_v1	           &ensp;&emsp;&emsp;&emsp;	                   -> &ensp; The program connect gives a friendly UI through which signals can be selected/sent to PRU0 and it will communicate with PRU1 so it displays them         <br />
+En primer lugar es necesario comentar las lineas "disable_uboot_video=1" y "disable_uboot_overlay_emmc=1" en el archivo uEnv.txt (necesario hacerlo en una tarjeta microSD) y reiniciar la BeagleBone.
+El siguiente paso es instalar el compilador clpru. Tambien se puede instalar para prudebug desde GitHub para comprobar el correcto funcionamiento del trabajo.
+Por ultimo, para compilar el proyecto y cargarlo en las PRUs se puede usar el comando "sudo make", para iniciar las PRUs el comando "sudo make start" y para pararlas el comando "sudo make stop".
